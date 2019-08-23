@@ -1,7 +1,7 @@
 <?php
 
 // Hooks
-$GLOBALS['TL_HOOKS']['generatePage'][] = array('Slashworks\ContaoTrackingManagerBundle\Classes', 'generatePageHook');
+$GLOBALS['TL_HOOKS']['generatePage'][] = array('Slashworks\ContaoTrackingManagerBundle\Classes\TrackingManager', 'generatePageHook');
 
 
 // Trackingmanager Config

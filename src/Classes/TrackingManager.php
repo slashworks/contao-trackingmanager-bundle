@@ -3,7 +3,6 @@
 namespace Slashworks\ContaoTrackingManagerBundle\Classes;
 
 use Slashworks\ContaoTrackingManagerBundle\Model\TmConfigModel;
-use Trackingmanager\Classes\TrackingManagerStatus;
 use Contao\Frontend;
 use Contao\FrontendTemplate;
 use Contao\PageModel;
@@ -20,9 +19,9 @@ class TrackingManager
      */
     public function generatePageHook(\PageModel $objPage, \LayoutModel $objLayout, \PageRegular $objPageRegular)
     {
-        $objRootPage =  PageModel::findById($objPage->rootId);
+        $objRootPage = PageModel::findById($objPage->rootId);
 
-        if(!$objRootPage->tm_active){
+        if (!$objRootPage->tm_active) {
             return;
         }
 
@@ -32,7 +31,7 @@ class TrackingManager
         $session = System::getContainer()->get('session');
         $frontendSession = $session->getBag('contao_frontend');
 
-        if($frontendSession->has('tm_config_set')){
+        if ($frontendSession->has('tm_config_set')) {
             // get cookies set vs available values
             foreach ($GLOBALS['TM'] as $config) {
                 if (!TrackingManagerStatus::getCookieStatus($config[0])) {
@@ -49,7 +48,7 @@ class TrackingManager
 
         // template and frontend logic
         $config = sha1(serialize($GLOBALS['TM']));
-        $savedConfig = Tracking::getCookieValue('tm_base');
+        $savedConfig = TrackingManagerStatus::getCookieValue('tm_base');
 
         if (!TrackingManagerStatus::getCookieStatus('tm_base') or ($config != $savedConfig)) {
 
@@ -62,9 +61,9 @@ class TrackingManager
             $objTpl->cookies = $GLOBALS['TM'];
             $objTpl->config = sha1(serialize($GLOBALS['TM']));
 
-            $GLOBALS['TL_CSS'][] = '/bundles/app/css/trackingmanager.css';
-            $GLOBALS['TL_JAVASCRIPT'][] = '/bundles/app/js/trackingmanager.js';
-            $GLOBALS['TL_BODY'][]  = $objTpl->parse();
+            $GLOBALS['TL_CSS'][] = '/bundles/contaotrackingmanager/css/trackingmanager.css';
+            $GLOBALS['TL_JAVASCRIPT'][] = '/bundles/contaotrackingmanager/js/trackingmanager.js';
+            $GLOBALS['TL_BODY'][] = $objTpl->parse();
 
             // save config preparation
             /** @var SessionInterface $session */
@@ -75,6 +74,5 @@ class TrackingManager
         }
 
     }
-
 
 }
