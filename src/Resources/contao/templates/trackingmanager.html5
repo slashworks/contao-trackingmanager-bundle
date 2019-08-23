@@ -1,0 +1,28 @@
+<?php if ($this->cookies): ?>
+    <div class="trackingmanager">
+        <?php if($this->intro): ?>
+            <div class="intro"><?php echo $this->intro; ?></div>
+        <?php endif; ?>
+        <form action="" id="trackingmanager">
+            <div class="row_wrapper">
+                <div class="row">
+                    <input type="checkbox" value='<?php echo $this->config; ?>' class="tm_chkbx" id="tm_base" checked readonly disabled><label for="tm_base"><?php echo $this->basecookieLabel; ?></label>
+                </div>
+                <?php foreach ($this->cookies as $cookie) : ?>
+                    <div class="row">
+                        <input type="checkbox" value="1" class="tm_chkbx" id="<?php echo $cookie[0]; ?>" checked><label for="<?php echo $cookie[0]; ?>"><?php echo $cookie[1]; ?></label>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <input type="submit" class="tm_submit button btn" value="<?php echo $this->submit; ?>">
+
+            <?php if($this->url) :?>
+                <div class="hint">
+                    <a href="<?php echo $this->url;?>" target="_blank"><?php echo $this->linktext; ?></a>
+                </div>
+            <?php endif; ?>
+        </form>
+    </div>
+
+
+<?php endif; ?>

@@ -1,0 +1,67 @@
+
+.trackingmanager {
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    background: rgba(255, 255, 255, 1);
+    max-width: 50%;
+    width: 500px;
+    color: rgba(50,50,50,1);
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    transition: .8s transform ease;
+    box-shadow:rgba(0,0,0,.3) 0 0 20px;
+}
+
+.trackingmanager.ready{
+    transform: translate(-50%,0);
+}
+
+.trackingmanager .intro{
+    padding: 0px 0 30px;
+    /*border-bottom: 1px solid #ccc;*/
+}
+
+.trackingmanager .row_wrapper {
+    background: rgba(245,245,245,1);
+}
+
+.trackingmanager .row {
+    display: grid;
+    grid-template-columns: 30px auto;
+    padding: 30px;
+    border-bottom: 1px solid #ccc;
+}
+
+.trackingmanager .row:last-child{
+    border-bottom: none;
+}
+
+.trackingmanager .tm_chkbx {
+    display: inline-block;
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.trackingmanager .tm_submit{
+    margin-top: 30px;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.trackingmanager .hint{
+    text-align: center;
+    padding: 30px 0 0 0;
+    color: #ccc;
+}
+
+.trackingmanager .hint a{
+    color: #999;
+    font-size: 12px;
+}
