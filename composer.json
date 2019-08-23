@@ -32,7 +32,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Contao\\SkeletonBundle\\": "src/"
+      "Slashworks\\ContaoTrackingManagerBundle\\": "src/"
     }
   },
   "autoload-dev": {
@@ -41,7 +41,7 @@
     }
   },
   "support": {
-    "issues": "https://github.com/slashworks/trackingmanager-bundle/issues",
-    "source": "https://github.com/slashworks/trackingmanager-bundle"
+    "issues": "https://github.com/slashworks/contao-trackingmanager-bundle/issues",
+    "source": "https://github.com/slashworks/contao-trackingmanager-bundle"
   }
 }
