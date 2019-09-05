@@ -7,11 +7,3 @@ $GLOBALS['TL_HOOKS']['generatePage'][] = array('Slashworks\ContaoTrackingManager
 // Trackingmanager Config
 //$GLOBALS['TM'][] = array('trackingfb','Facebook Tracking erlauben');
 //$GLOBALS['TM'][] = array('analytics','Google Analytics erlauben');
-
-$GLOBALS['BE_MOD']['Trackingmanager'] = array(
-
-    'configs' => array
-    (
-        'tables'      => array('tl_tmConfig')
-    )
-);
