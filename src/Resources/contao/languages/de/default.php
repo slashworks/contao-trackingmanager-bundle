@@ -4,6 +4,9 @@
 $GLOBALS['TL_LANG']['tl_content']['ce_masonry']['more'] = 'Weiterlesen';
 
 // tl_page
+$GLOBALS['TL_LANG']['tl_page']['tm_basecookie'][0] = 'Label für Basis Cookie';
+$GLOBALS['TL_LANG']['tl_page']['tm_basecookie'][1] = 'Beschreibung für die Systemrelvanten Cookies';
+
 $GLOBALS['TL_LANG']['tl_page']['tm_active'][0] = 'Trackingmanager aktivieren';
 $GLOBALS['TL_LANG']['tl_page']['tm_active'][1] = 'Bindet den Trackingmanager im Frontend ein';
 
