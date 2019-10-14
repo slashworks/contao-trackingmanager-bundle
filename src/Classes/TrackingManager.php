@@ -19,6 +19,9 @@ class TrackingManager
      */
     public function generatePageHook(\PageModel $objPage, \LayoutModel $objLayout, \PageRegular $objPageRegular)
     {
+        if($objPage->type != "regular"){
+            return;
+        }
         $objRootPage = PageModel::findById($objPage->rootId);
 
         if (!$objRootPage->tm_active) {
@@ -33,6 +36,11 @@ class TrackingManager
 
         if ($frontendSession->has('tm_config_set')) {
             // get cookies set vs available values
+
+            if(!is_array($GLOBALS['TM'])){
+               return;
+            }
+
             foreach ($GLOBALS['TM'] as $config) {
                 if (!TrackingManagerStatus::getCookieStatus($config[0])) {
                     $configModel = new TmConfigModel();
@@ -55,7 +63,7 @@ class TrackingManager
             $objTpl = new FrontendTemplate($this->strTemplate);
             $objTpl->intro = $objRootPage->tm_intro;
             $objTpl->basecookieLabel = $objRootPage->tm_basecookie;
-            $objTpl->url = Frontend::generateFrontendUrl(PageModel::findById($objRootPage->tm_link)->row());
+            $objTpl->url = Frontend::generateFrontendUrl(PageModel::findBy('id',$objRootPage->tm_link)->row());
             $objTpl->linktext = $objRootPage->tm_linktext;
             $objTpl->submit = $objRootPage->tm_submit;
             $objTpl->cookies = $GLOBALS['TM'];

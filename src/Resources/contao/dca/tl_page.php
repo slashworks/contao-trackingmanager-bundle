@@ -50,10 +50,9 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['tm_link'] = array
     'exclude'                 => true,
     'inputType'               => 'pageTree',
     'foreignKey'              => 'tl_page.title',
-    'eval'                    => array('fieldType'=>'radio','tl_class'=>'w50 autoHeight'), // do not set mandatory (see #5453)
-    'sql'                     => "int(10) unsigned NOT NULL default '0'",
-    'relation'                => array('type'=>'hasOne', 'load'=>'lazy')
-);
+    'eval'                    => array('fieldType'=>'radio', 'tl_class'=>'clr'),
+    'sql'                     => "int(10) unsigned NOT NULL default '0'"
+    );
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['tm_linktext'] = array
 (
