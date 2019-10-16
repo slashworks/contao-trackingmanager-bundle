@@ -4,6 +4,45 @@
 $GLOBALS['TL_HOOKS']['generatePage'][] = array('Slashworks\ContaoTrackingManagerBundle\Classes\TrackingManager', 'generatePageHook');
 
 
-// Trackingmanager Config
-//$GLOBALS['TM'][] = array('trackingfb','Facebook Tracking erlauben');
-//$GLOBALS['TM'][] = array('analytics','Google Analytics erlauben');
+/**
+ * Trackingmanager Config
+ *
+ * namen bitte mit heiko absprechen falls die analyse ueber den trackingmanager laeuft
+ *
+ * aktuelle absprache ins sachen namen wie folgt:
+ *
+ */
+
+$GLOBALS['TM'][] = array(
+
+    //name des cookies
+    'trackingfb',
+
+    //label des cookies
+    'Facebook Tracking erlauben',
+
+    // cookie erklaerungen
+    'description' => array(
+        'gesetzterCookie_1' => 'wird genutzt um dich ueberall orten zu können',
+        'gesetzterCookie_2' => 'wird ebenfalls genutzt um dich ueberall orten zu können, falls du den 1. löscht',
+    )
+
+);
+
+$GLOBALS['TM'][] = array('analytics light','Google Analytics erlauben');
+
+$GLOBALS['TM'][] = array(
+
+    //name des cookies
+    'analytics',
+
+    //label des cookies
+    'Google Analytics erlauben',
+
+    // cookie erklaerungen
+    'description' => array(
+        'gesetzterCookie_1' => 'wird genutzt um dich ueberall orten zu können',
+        'gesetzterCookie_2' => 'wird ebenfalls genutzt um dich ueberall orten zu können, falls du den 1. löscht',
+    )
+
+);

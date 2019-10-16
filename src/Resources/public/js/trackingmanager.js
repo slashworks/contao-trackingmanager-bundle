@@ -1,5 +1,16 @@
 !(function ($) {
 
+  var trackingmanager = {
+
+    init: function(){
+      $('.info').on('click',function(){
+        $(this).next().toggle('slow');
+      })
+    }
+  }
+
+
+
   $('document').ready(function () {
 
     /**
@@ -8,6 +19,11 @@
      */
     $('.trackingmanager').addClass('ready')
     var $form = $('#trackingmanager')
+
+    //toggle description
+    $('.info').on('click',function(){
+      $(this).next().toggle('fast');
+    })
 
     /**
      * date
