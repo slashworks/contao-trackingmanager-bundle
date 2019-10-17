@@ -43,6 +43,7 @@ class TrackingManager
 
             foreach ($GLOBALS['TM'] as $config) {
                 if (!TrackingManagerStatus::getCookieStatus($config[0])) {
+
                     $configModel = new TmConfigModel();
                     $configModel->pid = $session->getId();
                     $configModel->tstamp = date('U');
@@ -62,9 +63,9 @@ class TrackingManager
 
             $objTpl = new FrontendTemplate($this->strTemplate);
             $objTpl->intro = $objRootPage->tm_intro;
-            $objTpl->basecookieLabel = $objRootPage->tm_basecookie;
             $objTpl->url = Frontend::generateFrontendUrl(PageModel::findBy('id',$objRootPage->tm_link)->row());
             $objTpl->linktext = $objRootPage->tm_linktext;
+            $objTpl->submit_all = $objRootPage->tm_submit_all;
             $objTpl->submit = $objRootPage->tm_submit;
             $objTpl->cookies = $GLOBALS['TM'];
             $objTpl->config = sha1(serialize($GLOBALS['TM']));

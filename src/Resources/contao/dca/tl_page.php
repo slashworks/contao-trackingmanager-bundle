@@ -1,7 +1,7 @@
 <?php
 
 
-$GLOBALS['TL_DCA']['tl_page']['palettes']['root'] = str_replace('includeLayout;','includeLayout;{trackingmanager_legend},tm_active,tm_intro,tm_basecookie,tm_submit,tm_link,tm_linktext;',$GLOBALS['TL_DCA']['tl_page']['palettes']['root']);
+$GLOBALS['TL_DCA']['tl_page']['palettes']['root'] = str_replace('includeLayout;','includeLayout;{trackingmanager_legend},tm_active,tm_intro,tm_submit_all,tm_submit,tm_link,tm_linktext;',$GLOBALS['TL_DCA']['tl_page']['palettes']['root']);
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['tm_active'] = array
 (
@@ -18,14 +18,14 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['tm_intro'] = array
     'label'                   => &$GLOBALS['TL_LANG']['tl_page']['tm_intro'],
     'exclude'                 => true,
     'search'                  => true,
-    'inputType'               => 'text',
-    'eval'                    => array('mandatory'=>false, 'maxlength'=>255, 'decodeEntities'=>true, 'tl_class'=>'w50'),
-    'sql'                     => "varchar(255) NOT NULL default ''"
+    'inputType'               => 'textarea',
+    'eval'                    => array('mandatory'=>false,'allowHtml'=>true),
+    'sql'                     => "mediumtext NULL"
 );
 
-$GLOBALS['TL_DCA']['tl_page']['fields']['tm_basecookie'] = array
+$GLOBALS['TL_DCA']['tl_page']['fields']['tm_submit_all'] = array
 (
-    'label'                   => &$GLOBALS['TL_LANG']['tl_page']['tm_basecookie'],
+    'label'                   => &$GLOBALS['TL_LANG']['tl_page']['tl_submit_all'],
     'exclude'                 => true,
     'search'                  => true,
     'inputType'               => 'text',
@@ -50,7 +50,7 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['tm_link'] = array
     'exclude'                 => true,
     'inputType'               => 'pageTree',
     'foreignKey'              => 'tl_page.title',
-    'eval'                    => array('fieldType'=>'radio', 'tl_class'=>'clr'),
+    'eval'                    => array('fieldType'=>'radio', 'tl_class'=>'clr autoheight w50'),
     'sql'                     => "int(10) unsigned NOT NULL default '0'"
     );
 

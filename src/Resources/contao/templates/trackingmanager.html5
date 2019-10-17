@@ -2,29 +2,34 @@
     <div class="trackingmanager">
 
         <?php if ($this->intro): ?>
-            <div class="intro"><?php echo $this->intro; ?></div>
+
+            <div class="intro">
+                <?php echo $this->intro; ?>
+                <?php if ($this->url) : ?><a href="<?php echo $this->url; ?>" target="_blank"><?php echo $this->linktext; ?></a><?php endif; ?>
+            </div>
+
+            <div class="tm_accept">
+                <button type="submit" class="tm_submit_all button btn submit"><?php echo $this->submit_all; ?></button>
+                <a href="#" id="tm_denied">Ablehnen</a>
+            </div>
+
+            <a href="#" id="tm_more">Details</a>
+
         <?php endif; ?>
 
         <form action="" id="trackingmanager">
             <div class="row_wrapper">
 
-                <div class="row widget widget-checkbox">
-                    <fieldset class="checkbox_container">
-                        <span><input type="checkbox" value='<?php echo $this->config; ?>' class="tm_chkbx" id="tm_base" checked readonly disabled></span>
-                        <label for="tm_base"><?php echo $this->basecookieLabel; ?></label>
-                    </fieldset>
-                </div>
-
                 <?php foreach ($this->cookies as $cookie) : ?>
                     <div class="row widget widget-checkbox">
 
                         <fieldset class="checkbox_container">
-                            <span><input type="checkbox" value="1" class="tm_chkbx" id="<?php echo $cookie[0]; ?>"></span>
+                            <span><input type="checkbox" value="<?php echo ($cookie[0] == 'tm_base')? $this->config: '1'; ?>" class="tm_chkbx" id="<?php echo $cookie[0]; ?>" <?php if ($cookie[0] == 'tm_base'): ?> readonly checked disabled<?php endif; ?>></span>
                             <label for="<?php echo $cookie[0]; ?>"><?php echo $cookie[1]; ?></label>
                         </fieldset>
 
                         <?php if ($cookie['description'] and count($cookie['description']) > 0) : ?>
-                        <span class="info">&#x2139; </span>
+                            <span class="info">&#x2139; </span>
                             <div class="cookie_desc">
                                 <dl>
                                     <?php foreach ($cookie['description'] as $name => $description) : ?>
@@ -42,11 +47,7 @@
 
             <button type="submit" class="tm_submit button btn submit"><?php echo $this->submit; ?></button>
 
-            <?php if ($this->url) : ?>
-                <div class="hint">
-                    <a href="<?php echo $this->url; ?>" target="_blank"><?php echo $this->linktext; ?></a>
-                </div>
-            <?php endif; ?>
+
         </form>
 
     </div>

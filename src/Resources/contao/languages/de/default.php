@@ -13,6 +13,9 @@ $GLOBALS['TL_LANG']['tl_page']['tm_active'][1] = 'Bindet den Trackingmanager im 
 $GLOBALS['TL_LANG']['tl_page']['tm_intro'][0] = 'Introtext';
 $GLOBALS['TL_LANG']['tl_page']['tm_intro'][1] = 'Text der vor den Checkboxen erscheint';
 
+$GLOBALS['TL_LANG']['tl_page']['tl_submit_all'][0] = 'Alle bestätigen Button Label';
+$GLOBALS['TL_LANG']['tl_page']['tl_submit_all'][1] = 'Beschriftung des alle bestätigen Absenden-Buttons';
+
 $GLOBALS['TL_LANG']['tl_page']['tm_submit'][0] = 'Absendenbutton';
 $GLOBALS['TL_LANG']['tl_page']['tm_submit'][1] = 'Beschriftung des Absenden-Buttons';
 

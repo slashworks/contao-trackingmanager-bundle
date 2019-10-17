@@ -1,12 +1,14 @@
 
 .trackingmanager {
     position: fixed;
+    font-size: .85em;
+    line-height: 1.4;
     z-index: 10000;
     top: 0;
     left: 50%;
     transform: translate(-50%, -100%);
     background: rgba(255, 255, 255, 1);
-    max-width: 50%;
+    max-width: 100%;
     width: 500px;
     color: rgba(50,50,50,1);
     padding-left: 50px;
@@ -26,6 +28,36 @@
     /*border-bottom: 1px solid #ccc;*/
 }
 
+/* accept area
+========================================================================== */
+
+.tm_accept{
+    margin-bottom: 30px;
+}
+
+.tm_submit_all{
+    width: 100%;
+}
+
+#tm_denied{
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+}
+
+#tm_more{
+    text-align: center;
+    display: block;
+    margin-bottom: 15px;
+}
+
+/* form area
+========================================================================== */
+
+form#trackingmanager{
+    display: none;
+}
+
 .trackingmanager .row_wrapper {
     background: rgba(245,245,245,1);
 }
@@ -33,7 +65,7 @@
 .trackingmanager .row {
     border-bottom: 1px solid #ccc;
     position: relative;
-    padding-right: 20px;
+    padding: 5px 20px 5px 5px;
 }
 
 .trackingmanager .row:last-child{
@@ -47,8 +79,7 @@
     box-shadow: none;
 }
 .trackingmanager .tm_submit{
-    margin-top: 30px;
-    width: 50%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
 }
@@ -90,7 +121,7 @@
 
 .trackingmanager .cookie_desc dl{
     display: grid;
-    grid-template-columns: 2fr 3fr;
+    grid-template-columns: 1fr 4fr;
     grid-row-gap: 10px;
     grid-column-gap: 0;
 }
