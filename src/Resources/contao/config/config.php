@@ -21,20 +21,20 @@ $GLOBALS['TL_HOOKS']['generatePage'][] = array('Slashworks\ContaoTrackingManager
  */
 
 /* pflichtcookie für das Modul - System Relevante Cokkies */
-$GLOBALS['TM'][] = array(
-
-    //name des cookies
-    'tm_base',
-
-    //label des cookies
-    'System relevante Cookies (erforderlich)',
-
-    // cookie erklaerungen
-    'description' => array(
-        'PHPSESSID' => 'Behält die Zustände der jeweiligen Session bei allen Seitenanfragen bei.<br /><strong>Ablaufzeit: mit der Session</strong>',
-        'tm_base' => 'Speichert den Zustimmungsstatus des Benutzers für Cookies auf der aktuellen Domäne.<br /><strong>Ablaufzeit: 4 Wochen</strong>',
-    )
-);
+//$GLOBALS['TM'][] = array(
+//
+//    //name des cookies
+//    'tm_base',
+//
+//    //label des cookies
+//    'System relevante Cookies (erforderlich)',
+//
+//    // cookie erklaerungen
+//    'description' => array(
+//        'PHPSESSID' => 'Behält die Zustände der jeweiligen Session bei allen Seitenanfragen bei.<br /><strong>Ablaufzeit: mit der Session</strong>',
+//        'tm_base' => 'Speichert den Zustimmungsstatus des Benutzers für Cookies auf der aktuellen Domäne.<br /><strong>Ablaufzeit: 4 Wochen</strong>',
+//    )
+//);
 
 
 /* beispiel */
