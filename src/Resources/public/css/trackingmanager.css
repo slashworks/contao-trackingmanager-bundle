@@ -79,6 +79,7 @@ form#trackingmanager{
     outline: none;
     border: none;
     box-shadow: none;
+    width: 20px;
 }
 .trackingmanager .tm_submit{
     width: 100%;
@@ -109,13 +110,13 @@ form#trackingmanager{
 .trackingmanager .info{
     position: absolute;
     cursor: pointer;
-    top:0;
+    top:5px;
     right: 5px;
     background: #fff;
     padding: 5px;
     border-radius: 50%;
     line-height: 1;
-    vertical-align: center;
+    line-height: 15px;
     width: 15px;
     height: 15px;
     text-align: center;
