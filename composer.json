@@ -10,7 +10,7 @@
     }
   ],
   "require": {
-    "contao/core-bundle": "^4.*"
+    "contao/core-bundle": "^4.4.* || ^4.8.*"
   },
   "conflict": {
     "contao/core": "*",
