@@ -12,12 +12,6 @@
   "require": {
     "contao/core-bundle": "^4.4.8"
   },
-  "conflict": {
-    "contao/core": "*",
-    "contao/manager-plugin": "<2.0 || >=3.0"
-  },
-  "require-dev": {
-  },
   "extra": {
     "contao-manager-plugin": "Slashworks\\ContaoTrackingManagerBundle\\ContaoManager\\Plugin"
   },
