@@ -8,7 +8,7 @@ use Contao\FrontendTemplate;
 use Contao\PageModel;
 use Contao\System;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Contao\Controller
+use Contao\Controller;
     
 class TrackingManager
 {
