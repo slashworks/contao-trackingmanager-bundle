@@ -10,7 +10,7 @@
 
             <div class="tm_accept">
                 <button type="submit" class="tm_submit_all button btn submit"><?php echo $this->submit_all; ?></button>
-                <a href="#" id="tm_denied">Ablehnen</a>
+<!--                <a href="#" id="tm_denied">Ablehnen</a>-->
             </div>
 
             <a href="#" id="tm_more">Details</a>
