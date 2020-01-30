@@ -5,12 +5,13 @@
 
             <div class="intro">
                 <?php echo $this->intro; ?>
-                <?php if ($this->url) : ?><a href="<?php echo $this->url; ?>" target="_blank"><?php echo $this->linktext; ?></a><?php endif; ?>
+                <?php if ($this->url) : ?><a href="<?php echo $this->url; ?>"
+                                             target="_blank"><?php echo $this->linktext; ?></a><?php endif; ?>
             </div>
 
             <div class="tm_accept">
                 <button type="submit" class="tm_submit_all button btn submit"><?php echo $this->submit_all; ?></button>
-<!--                <a href="#" id="tm_denied">Ablehnen</a>-->
+                <!--                <a href="#" id="tm_denied">Ablehnen</a>-->
             </div>
 
             <a href="#" id="tm_more">Details</a>
@@ -24,7 +25,10 @@
                     <div class="row widget widget-checkbox">
 
                         <fieldset class="checkbox_container">
-                            <span><input type="checkbox" value="<?php echo ($cookie[0] == 'tm_base')? $this->config: '1'; ?>" class="tm_chkbx" id="<?php echo $cookie[0]; ?>" <?php if ($cookie[0] == 'tm_base'): ?> readonly checked disabled<?php endif; ?>></span>
+                            <span><input type="checkbox"
+                                         value="<?php echo ($cookie[0] == 'tm_base') ? $this->config : '1'; ?>"
+                                         class="tm_chkbx"
+                                         id="<?php echo $cookie[0]; ?>" <?php if ($cookie[0] == 'tm_base'): ?> readonly checked disabled<?php endif; ?>></span>
                             <label for="<?php echo $cookie[0]; ?>"><?php echo $cookie[1]; ?></label>
                         </fieldset>
 
