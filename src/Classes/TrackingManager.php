@@ -8,7 +8,8 @@ use Contao\FrontendTemplate;
 use Contao\PageModel;
 use Contao\System;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-
+use Contao\Controller;
+    
 class TrackingManager
 {
 
@@ -72,7 +73,7 @@ class TrackingManager
 
             $GLOBALS['TL_CSS'][] = '/bundles/contaotrackingmanager/css/trackingmanager.css';
             $GLOBALS['TL_JAVASCRIPT'][] = '/bundles/contaotrackingmanager/js/trackingmanager.js';
-            $GLOBALS['TL_BODY'][] = $objTpl->parse();
+            $GLOBALS['TL_BODY'][] = Controller::replaceInsertTags($objTpl->parse());
 
             // save config preparation
             /** @var SessionInterface $session */
