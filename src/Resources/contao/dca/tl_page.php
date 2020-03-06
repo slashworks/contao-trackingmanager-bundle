@@ -1,7 +1,11 @@
 <?php
 
 
-$GLOBALS['TL_DCA']['tl_page']['palettes']['root'] = str_replace('includeLayout;','includeLayout;{trackingmanager_legend},tm_active,tm_intro,tm_submit_all,tm_submit,tm_link,tm_linktext;',$GLOBALS['TL_DCA']['tl_page']['palettes']['root']);
+\Contao\CoreBundle\DataContainer\PaletteManipulator::create()
+    ->addLegend('trackingmanager_legend','twoFactor_legend',\Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_AFTER)
+    ->addField(array('tm_active,tm_intro,tm_submit_all,tm_submit,tm_link,tm_linktext'),'trackingmanager_legend',\Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
+    ->applyToPalette('rootfallback','tl_page')
+    ->applyToPalette('root','tl_page');
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['tm_active'] = array
 (
