@@ -1,11 +1,15 @@
 <?php
 
+use \Contao\CoreBundle\DataContainer\PaletteManipulator;
 
-\Contao\CoreBundle\DataContainer\PaletteManipulator::create()
+$tmPalette = PaletteManipulator::create()
     ->addLegend('trackingmanager_legend','twoFactor_legend',\Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_AFTER)
-    ->addField(array('tm_active,tm_intro,tm_submit_all,tm_submit,tm_link,tm_linktext'),'trackingmanager_legend',\Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
-    ->applyToPalette('rootfallback','tl_page')
-    ->applyToPalette('root','tl_page');
+    ->addField(array('tm_active,tm_intro,tm_submit_all,tm_submit,tm_link,tm_linktext'),'trackingmanager_legend',\Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND);
+    ->applyToPalette('root', 'tl_page');
+
+if (array_key_exists('rootfallback', $GLOBALS['TL_DCA']['tl_page']['palettes'])) {
+    $tmPalette->applyToPalette('rootfallback', 'tl_page');
+}
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['tm_active'] = array
 (
