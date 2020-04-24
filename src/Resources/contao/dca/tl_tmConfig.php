@@ -7,7 +7,6 @@ $GLOBALS['TL_DCA']['tl_tmConfig'] = array
     'config'      => array
     (
         'dataContainer' => 'Table',
-        'closed' => true,
         'sql'           => array
         (
             'keys' => array

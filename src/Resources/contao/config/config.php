@@ -3,6 +3,13 @@
 // Hooks
 $GLOBALS['TL_HOOKS']['generatePage'][] = array('Slashworks\ContaoTrackingManagerBundle\Classes\TrackingManager', 'generatePageHook');
 
+// Backendmodul
+$GLOBALS['BE_MOD']['trackingmanager']['settings'] = array
+(
+    'tables'      => array('tl_tmSettings'),
+    'createBase' => array('Slashworks\ContaoTrackingManagerBundle\Classes\CreateBase', 'createBase'),
+);
+
 
 /**
  * Trackingmanager Config

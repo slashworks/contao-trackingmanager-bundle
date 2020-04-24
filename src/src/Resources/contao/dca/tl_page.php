@@ -1,11 +1,16 @@
 <?php
 
+$this->loadDataContainer('tl_page');
 
 \Contao\CoreBundle\DataContainer\PaletteManipulator::create()
     ->addLegend('trackingmanager_legend','twoFactor_legend',\Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_AFTER)
-    ->addField(array('tm_active,tm_intro,tm_submit_all,tm_submit,tm_link,tm_linktext'),'trackingmanager_legend',\Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
+    ->addField(array('tm_active'),'trackingmanager_legend',\Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
     ->applyToPalette('rootfallback','tl_page')
     ->applyToPalette('root','tl_page');
+
+$GLOBALS['TL_DCA']['tl_page']['palettes']['__selector__'][] = 'tm_active';
+$GLOBALS['TL_DCA']['tl_page']['subpalettes']['tm_active'] = 'tm_intro,tm_submit_all,tm_submit,tm_link,tm_linktext';
+
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['tm_active'] = array
 (
@@ -13,7 +18,7 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['tm_active'] = array
     'exclude'                 => true,
     'search'                  => 'true',
     'inputType'               => 'checkbox',
-    'eval'                    => array('mandatory'=>false, 'maxlength'=>255, 'decodeEntities'=>true, 'tl_class'=>'clr m12'),
+    'eval'                    => array('mandatory'=>false, 'maxlength'=>255, 'decodeEntities'=>true, 'tl_class'=>'clr m12','submitOnChange'=>true),
     'sql'                     => "char(1) NOT NULL default ''"
 );
 

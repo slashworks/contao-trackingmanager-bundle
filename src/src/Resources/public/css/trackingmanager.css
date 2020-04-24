@@ -1,0 +1,144 @@
+
+.trackingmanager {
+    position: fixed;
+    max-height: 100vh;
+    overflow: auto;
+    font-size: .85em;
+    line-height: 1.4;
+    z-index: 10000;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    background: rgba(255, 255, 255, 1);
+    max-width: 100%;
+    width: 500px;
+    color: rgba(50,50,50,1);
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    transition: .8s transform ease;
+    box-shadow:rgba(0,0,0,.3) 0 0 20px;
+}
+
+.trackingmanager.ready{
+    transform: translate(-50%,0);
+}
+
+.trackingmanager .intro{
+    padding: 0px 0 30px;
+    /*border-bottom: 1px solid #ccc;*/
+}
+
+/* accept area
+========================================================================== */
+
+.tm_accept{
+    margin-bottom: 30px;
+}
+
+.tm_submit_all{
+    width: 100%;
+}
+
+#tm_denied{
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+}
+
+#tm_more{
+    text-align: center;
+    display: block;
+    margin-bottom: 15px;
+}
+
+/* form area
+========================================================================== */
+
+form#trackingmanager{
+    display: none;
+}
+
+.trackingmanager .row_wrapper {
+    background: rgba(245,245,245,1);
+}
+
+.trackingmanager .row {
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    padding: 5px 20px 5px 5px;
+}
+
+.trackingmanager .row:last-child{
+    border-bottom: none;
+}
+
+.trackingmanager .tm_chkbx {
+    display: inline-block;
+    outline: none;
+    border: none;
+    box-shadow: none;
+    width: 20px;
+}
+.trackingmanager .tm_submit{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.trackingmanager .hint{
+    text-align: center;
+    padding: 30px 0 0 0;
+    color: #ccc;
+}
+
+.trackingmanager .hint a{
+    color: #999;
+    font-size: 12px;
+}
+
+/* description
+========================================================================== */
+
+.trackingmanager .cookie_desc{
+    padding: 5px 15px;
+    font-size: .75em;
+    display: none;
+}
+
+.trackingmanager .info{
+    position: absolute;
+    cursor: pointer;
+    top:5px;
+    right: 5px;
+    background: #fff;
+    padding: 5px;
+    border-radius: 50%;
+    line-height: 1;
+    line-height: 15px;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+}
+
+.trackingmanager .cookie_desc dl{
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-row-gap: 10px;
+    grid-column-gap: 0;
+}
+
+.trackingmanager .cookie_desc dt {
+    /*border-bottom: 1px dashed #ccc;*/
+    margin: 0;
+    /*padding-bottom: 10px;*/
+}
+
+.trackingmanager .cookie_desc dd {
+    padding-left: 5px;
+    /*border-bottom: 1px dashed #ccc;*/
+    margin-left: 0;
+    /*padding-bottom: 10px;*/
+}
+
