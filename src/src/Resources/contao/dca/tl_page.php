@@ -8,6 +8,7 @@ $this->loadDataContainer('tl_page');
     ->applyToPalette('rootfallback','tl_page')
     ->applyToPalette('root','tl_page');
 
+
 $GLOBALS['TL_DCA']['tl_page']['palettes']['__selector__'][] = 'tm_active';
 $GLOBALS['TL_DCA']['tl_page']['subpalettes']['tm_active'] = 'tm_intro,tm_submit_all,tm_submit,tm_link,tm_linktext';
 
