@@ -1,14 +1,12 @@
 <?php
 
-$this->loadDataContainer('tl_page');
-
 \Contao\CoreBundle\DataContainer\PaletteManipulator::create()
     ->addLegend('trackingmanager_legend','twoFactor_legend',\Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_AFTER)
     ->addField(array('tm_active'),'trackingmanager_legend',\Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
     ->applyToPalette('rootfallback','tl_page')
     ->applyToPalette('root','tl_page');
 
-
+//added subpalettes
 $GLOBALS['TL_DCA']['tl_page']['palettes']['__selector__'][] = 'tm_active';
 $GLOBALS['TL_DCA']['tl_page']['subpalettes']['tm_active'] = 'tm_intro,tm_submit_all,tm_submit,tm_link,tm_linktext';
 
