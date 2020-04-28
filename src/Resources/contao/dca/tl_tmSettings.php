@@ -74,7 +74,7 @@ $GLOBALS['TL_DCA']['tl_tmSettings'] = array
     // Palettes
     'palettes' => array
     (
-        'default' => '{title_legend},name,label,descriptions,published',
+        'default' => '{title_legend},name,label,descriptions,isBaseCookie,published',
     ),
 
     // Subpalettes
@@ -120,6 +120,16 @@ $GLOBALS['TL_DCA']['tl_tmSettings'] = array
             'eval' => array('tl_class' => 'w50'),
             'sql' => "varchar(255) NOT NULL default ''",
         ),
+        'isBaseCookie' => array
+        (
+            'label' => &$GLOBALS['TL_LANG']['tl_tmSettings']['isBaseCookie'],
+            'exclude' => true,
+            'search' => true,
+            'sorting' => true,
+            'inputType' => 'checkbox',
+            'eval' => array('tl_class' => 'w50'),
+            'sql' => "varchar(255) NOT NULL default ''",
+        ),
         'published' => array
         (
             'label' => &$GLOBALS['TL_LANG']['tl_tmSettings']['published'],
@@ -149,7 +159,7 @@ $GLOBALS['TL_DCA']['tl_tmSettings'] = array
                         'label' => &$GLOBALS['TL_LANG']['tl_tmSettings']['description'],
                         'exclude' => true,
                         'inputType' => 'text',
-                        'eval' => [],
+                        'eval' => ['preserveTags'=>true,'allowHtml'=>true],
                     ],
                 ],
                 'tl_class' => 'm12 clr'

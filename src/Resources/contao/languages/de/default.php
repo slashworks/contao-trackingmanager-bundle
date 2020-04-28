@@ -3,6 +3,9 @@
 
 $GLOBALS['TL_LANG']['tl_content']['ce_masonry']['more'] = 'Weiterlesen';
 
+$GLOBALS['TL_LANG']['MOD']['tmSettings'] = 'Cookies';
+$GLOBALS['TL_LANG']['MOD']['tmConfig'] = 'Statistik';
+
 // tl_page
 $GLOBALS['TL_LANG']['tl_page']['tm_basecookie'][0] = 'Label für Basis Cookie';
 $GLOBALS['TL_LANG']['tl_page']['tm_basecookie'][1] = 'Beschreibung für die Systemrelvanten Cookies';

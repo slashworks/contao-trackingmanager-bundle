@@ -17,7 +17,6 @@ class CreateBase extends Backend
 //        $this->createGoogleMaps();
 
         \Controller::redirect(\Controller::getReferer());
-
     }
 
 
@@ -31,6 +30,7 @@ class CreateBase extends Backend
         $objModel->name = 'tm_base';
         $objModel->label = 'System relevante Cookies (erforderlich)';
         $objModel->published = '1';
+        $objModel->isBaseCookie = '1';
         $objModel->descriptions = serialize(array(
             array(
                 'label' => 'PHPSESSID',

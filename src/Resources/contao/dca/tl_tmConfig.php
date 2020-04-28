@@ -4,10 +4,10 @@ $GLOBALS['TL_DCA']['tl_tmConfig'] = array
 (
 
     // Config
-    'config'      => array
+    'config' => array
     (
         'dataContainer' => 'Table',
-        'sql'           => array
+        'sql' => array
         (
             'keys' => array
             (
@@ -17,28 +17,29 @@ $GLOBALS['TL_DCA']['tl_tmConfig'] = array
     ),
 
     // List
-    'list'        => array
+    'list' => array
     (
-        'sorting'           => array
+        'sorting' => array
         (
-            'mode'        => 2,
-            'fields' => array('tstamp','title'),
-            'icon'        => 'pagemounts.svg',
+            'mode' => 2,
+            'fields' => array('pid'),
+            'icon' => 'pagemounts.svg',
             'panelLayout' => 'filter;search,sort',
         ),
-        'label'             => array
+        'label' => array
         (
-            'fields' => array('pid','tstamp','title'),
-            'showColumns' => true
+            'fields' => array('tstamp','title'),
+            'format' => "%s - %s",
+            'showColumns' => false
         ),
         'global_operations' => array
         (),
-        'operations'        => array
+        'operations' => array
         (),
     ),
 
     // Palettes
-    'palettes'    => array
+    'palettes' => array
     (
         'default' => '{title_legend},title,alias,type',
     ),
@@ -48,33 +49,33 @@ $GLOBALS['TL_DCA']['tl_tmConfig'] = array
     (),
 
     // Fields
-    'fields'      => array
+    'fields' => array
     (
-        'id'    => array
+        'id' => array
         (
-            'label'  => array('ID'),
-            'sql'    => "int(10) unsigned NOT NULL auto_increment",
+            'label' => array('ID'),
+            'sql' => "int(10) unsigned NOT NULL auto_increment",
         ),
         'tstamp' => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_tmConfig']['tstamp'],
+            'label' => &$GLOBALS['TL_LANG']['tl_tmConfig']['tstamp'],
             'sorting' => true,
-            'sql'                     => "int(10) unsigned NOT NULL default '0'"
+            'sql' => "int(10) unsigned NOT NULL default '0'"
         ),
-        'pid'   => array
+        'pid' => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_tmConfig']['pid'],
+            'label' => &$GLOBALS['TL_LANG']['tl_tmConfig']['pid'],
             'sql' => "varchar(255) NOT NULL default ''",
         ),
         'title' => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_tmConfig']['title'],
-            'exclude'   => true,
-            'search'    => true,
+            'label' => &$GLOBALS['TL_LANG']['tl_tmConfig']['title'],
+            'exclude' => true,
+            'search' => true,
             'sorting' => true,
             'inputType' => 'text',
-            'eval'      => array(),
-            'sql'       => "varchar(255) NOT NULL default ''",
+            'eval' => array(),
+            'sql' => "varchar(255) NOT NULL default ''",
         ),
     )
 );
