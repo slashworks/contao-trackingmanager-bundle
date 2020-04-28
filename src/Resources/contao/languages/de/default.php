@@ -4,7 +4,7 @@
 $GLOBALS['TL_LANG']['tl_content']['ce_masonry']['more'] = 'Weiterlesen';
 
 $GLOBALS['TL_LANG']['MOD']['tmSettings'] = array('Cookies','Cookies hinzufügen');
-$GLOBALS['TL_LANG']['MOD']['tmConfig'] = array('Statistik','Gespeicherte Konfigurationenn anzeigen');
+$GLOBALS['TL_LANG']['MOD']['tmConfig'] = array('Statistik','Gespeicherte Konfigurationen anzeigen');
 
 // tl_page
 $GLOBALS['TL_LANG']['tl_page']['tm_basecookie'][0] = 'Label für Basis Cookie';
