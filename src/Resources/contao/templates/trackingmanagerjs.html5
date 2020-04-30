@@ -14,7 +14,7 @@
                 $('.trackingmanager').addClass('ready')
 
                 //toggle description
-                $('.info').on('click', function (e) {
+                $('#trackingmanager .info').on('click', function (e) {
                     e.preventDefault(e)
                     $(this).next().toggle('fast');
                 });
