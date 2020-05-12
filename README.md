@@ -31,7 +31,7 @@ Es gibt einen Pflichtcookie-Hinweis
 
 
 
-Für jedes weitere Cookie welches aktiviert / dektiviert werden kann, muss das Array entsprechend der Vorgabe erweitert werden. Die Namen der Cookies brauchen wir später.
+Für jedes weitere Cookie welches aktiviert / deaktiviert werden kann, muss das Array entsprechend der Vorgabe erweitert werden. Die Namen der Cookies brauchen wir später.
 
     // Beispiel fuer Google analytics
     $GLOBALS['TM'][] = array(
@@ -55,7 +55,7 @@ Bis hierhin steuern wir lediglich die Anzeige des Managers. Es findet noch keine
 
 ## Code zum verhindern der Cookies
 
-Wenn der Trackingmanager angezeigt wird und der User seine Cookies akzeptiert, setzt der Manager eigene Cookies um sich die Auswahl zu merken. Der Name des Cookies entspricht dem der Konfiguration. (z.B. tm_base und bozi_ga).
+Wenn der Trackingmanager angezeigt wird und der User seine Cookies akzeptiert, setzt der Manager eigene Cookies, um sich die Auswahl zu merken. Der Name des Cookies entspricht dem der Konfiguration. (z.B. tm_base und bozi_ga).
 Im tm_base Cookie speichern wir die aktuelle Konfiguration. Ändert sich diese, wird der Trackingmanager erneut angezeigt.
 
 In deinem Code, welcher entsprechende Cookies setzen will, können wir nun eine Abfrage machen, ob Cookie XY akzeptiert wurde.
