@@ -25,7 +25,7 @@ In deinem Code, welcher entsprechende Cookies setzen will, können wir nun eine 
 
     if(TrackingManagerStatus::getCookieStatus('bozi_ga')){}
 
-    //oder mehrsprachig falls es da selbe skript ist
+    //oder mehrsprachig falls es das selbe Skript ist
     if(TrackingManagerStatus::getCookieStatus('bozi_ga') or TrackingManagerStatus::getCookieStatus('bozi_ga_en')){} …usw
 
 Das steuert die Ausgabe, wenn bozi_ga akzeptiert wurde. Also im Template einfach den Codebereich damit umschließen. Das kann mit jedem konfiguriertem Cookie so genutzt werden.
