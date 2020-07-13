@@ -14,7 +14,7 @@
                 <!--                <a href="#" id="tm_denied">Ablehnen</a>-->
             </div>
 
-            <a href="#" id="tm_more">Details</a>
+            <a href="#" id="tm_more"><?= $GLOBALS['TL_LANG']['MSC']['tm_details']; ?></a>
 
         <?php endif; ?>
 

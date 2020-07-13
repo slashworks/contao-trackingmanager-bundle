@@ -29,3 +29,4 @@ $GLOBALS['TL_LANG']['tl_page']['tm_linktext'][0] = 'Linktext';
 $GLOBALS['TL_LANG']['tl_page']['tm_linktext'][1] = 'Bindet den Linktext zu den Datenschutzhinweisen ein.';
 
 $GLOBALS['TL_LANG']['tl_page']['trackingmanager_legend'] = 'Trackingmanager Einstellungen';
+$GLOBALS['TL_LANG']['MSC']['tm_details'] = 'Auswahl anpassen';

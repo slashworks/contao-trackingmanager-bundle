@@ -36,15 +36,20 @@ class TrackingManager
         $session = System::getContainer()->get('session');
         $frontendSession = $session->getBag('contao_frontend');
 
-        $objCookieSettings = TrackingmanagerSettingsModel::findBy('published', '1');
-        $objBaseCookie = TrackingmanagerSettingsModel::findOneBy('isBaseCookie', '1');
 
+        $objCookieSettings = TrackingmanagerSettingsModel::getCookiesByRootpage($objRootPage);
+        $objBaseCookie = TrackingmanagerSettingsModel::getBaseCookieByRootPage($objRootPage);
+
+//      $objCookieSettings = TrackingmanagerSettingsModel::findBy('published', '1');
+//      $objBaseCookie = TrackingmanagerSettingsModel::findOneBy('isBaseCookie', '1');
 
         // get cookies set vs available values
         if (NULL == $objCookieSettings) {
+            System::log("No Cookies selected in Root Page", __METHOD__, TL_GENERAL);
             return;
         }
         if (NULL == $objBaseCookie) {
+            System::log("No BaseCookie selected in Root Page", __METHOD__, TL_GENERAL);
             return;
         }
 
@@ -52,7 +57,7 @@ class TrackingManager
 
             // save cookie settings in DB
             if ($frontendSession->has('tm_config_set')) {
-                if (!TrackingManagerStatus::getCookieStatus($objBaseCookie->name)) {
+                if (!TrackingmanagerStatus::getCookieStatus($objBaseCookie->name)) {
                     $configModel = new TmConfigModel();
                     $configModel->pid = $session->getId();
                     $configModel->tstamp = date('U');
@@ -70,9 +75,9 @@ class TrackingManager
 
         // template and frontend logic
         $config = sha1(serialize($arrCookies));
-        $savedConfig = TrackingManagerStatus::getCookieValue($objBaseCookie->name);
+        $savedConfig = TrackingmanagerStatus::getCookieValue($objBaseCookie->name);
 
-        if (!TrackingManagerStatus::getCookieStatus($objBaseCookie->name) or ($config != $savedConfig)) {
+        if (!TrackingmanagerStatus::getCookieStatus($objBaseCookie->name) or ($config != $savedConfig)) {
             $objTpl = new FrontendTemplate($this->strTemplate);
             $objTpl->intro = $objRootPage->tm_intro;
             if ($objRootPage->tm_link) {
