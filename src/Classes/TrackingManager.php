@@ -57,7 +57,7 @@ class TrackingManager
 
             // save cookie settings in DB
             if ($frontendSession->has('tm_config_set')) {
-                if (!TrackingmanagerStatus::getCookieStatus($objBaseCookie->name)) {
+                if (!TrackingManagerStatus::getCookieStatus($objBaseCookie->name)) {
                     $configModel = new TmConfigModel();
                     $configModel->pid = $session->getId();
                     $configModel->tstamp = date('U');
@@ -75,9 +75,9 @@ class TrackingManager
 
         // template and frontend logic
         $config = sha1(serialize($arrCookies));
-        $savedConfig = TrackingmanagerStatus::getCookieValue($objBaseCookie->name);
+        $savedConfig = TrackingManagerStatus::getCookieValue($objBaseCookie->name);
 
-        if (!TrackingmanagerStatus::getCookieStatus($objBaseCookie->name) or ($config != $savedConfig)) {
+        if (!TrackingManagerStatus::getCookieStatus($objBaseCookie->name) or ($config != $savedConfig)) {
             $objTpl = new FrontendTemplate($this->strTemplate);
             $objTpl->intro = $objRootPage->tm_intro;
             if ($objRootPage->tm_link) {
