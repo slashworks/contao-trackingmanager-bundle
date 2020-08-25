@@ -21,37 +21,42 @@ class TrackingManager
      */
     public function generatePageHook(\PageModel $objPage, \LayoutModel $objLayout, \PageRegular $objPageRegular)
     {
-        if($objPage->type != "regular"){
+        if ($objPage->type != "regular") {
             return;
         }
+
         $objRootPage = PageModel::findById($objPage->rootId);
 
         if (!$objRootPage->tm_active) {
             return;
         }
 
-
         //check sessionbag to save saved config
         /** @var SessionInterface $session */
         $session = System::getContainer()->get('session');
         $frontendSession = $session->getBag('contao_frontend');
 
-        $objCookieSettings = TrackingmanagerSettingsModel::findBy('published','1');
-        $objBaseCookie = TrackingmanagerSettingsModel::findOneBy('isBaseCookie','1');
 
+        $objCookieSettings = TrackingmanagerSettingsModel::getCookiesByRootpage($objRootPage);
+        $objBaseCookie = TrackingmanagerSettingsModel::getBaseCookieByRootPage($objRootPage);
 
-        if ($frontendSession->has('tm_config_set')) {
-            // get cookies set vs available values
+//      $objCookieSettings = TrackingmanagerSettingsModel::findBy('published', '1');
+//      $objBaseCookie = TrackingmanagerSettingsModel::findOneBy('isBaseCookie', '1');
 
-            if(NULL == $objCookieSettings){
-               return;
-            }
+        // get cookies set vs available values
+        if (NULL == $objCookieSettings) {
+            System::log("No Cookies selected in Root Page", __METHOD__, TL_GENERAL);
+            return;
+        }
+        if (NULL == $objBaseCookie) {
+            System::log("No BaseCookie selected in Root Page", __METHOD__, TL_GENERAL);
+            return;
+        }
 
-            if(NULL == $objBaseCookie){
-                     return;
-           }
+        while ($objCookieSettings->next()) {
 
-            while($objCookieSettings->next()){
+            // save cookie settings in DB
+            if ($frontendSession->has('tm_config_set')) {
                 if (!TrackingManagerStatus::getCookieStatus($objBaseCookie->name)) {
                     $configModel = new TmConfigModel();
                     $configModel->pid = $session->getId();
@@ -60,24 +65,23 @@ class TrackingManager
                     $configModel->save();
                 }
 
-                $objCookieSettings->descriptions = \StringUtil::deserialize($objCookieSettings->descriptions);
-                $arrCookies[$objCookieSettings->name] = $objCookieSettings->current();
             }
+
+            $objCookieSettings->descriptions = \StringUtil::deserialize($objCookieSettings->descriptions);
+            $arrCookies[$objCookieSettings->name] = $objCookieSettings->current();
         }
 
         $frontendSession->remove('tm_config_set');
-
 
         // template and frontend logic
         $config = sha1(serialize($arrCookies));
         $savedConfig = TrackingManagerStatus::getCookieValue($objBaseCookie->name);
 
         if (!TrackingManagerStatus::getCookieStatus($objBaseCookie->name) or ($config != $savedConfig)) {
-
             $objTpl = new FrontendTemplate($this->strTemplate);
             $objTpl->intro = $objRootPage->tm_intro;
-            if($objRootPage->tm_link){
-                $objTpl->url = Frontend::generateFrontendUrl(PageModel::findBy('id',$objRootPage->tm_link)->row());
+            if ($objRootPage->tm_link) {
+                $objTpl->url = Frontend::generateFrontendUrl(PageModel::findBy('id', $objRootPage->tm_link)->row());
             }
             $objTpl->baseCookieName = $objBaseCookie->name;
             $objTpl->linktext = $objRootPage->tm_linktext;

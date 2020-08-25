@@ -8,3 +8,4 @@ $GLOBALS['TL_LANG']['tl_tmSettings']['descriptions'] = array('Dienst Cookies','L
 $GLOBALS['TL_LANG']['tl_tmSettings']['descriptionLabel'] = array('Name');
 $GLOBALS['TL_LANG']['tl_tmSettings']['description'] = array('Beschreibung');
 $GLOBALS['TL_LANG']['tl_tmSettings']['createBase'] = array('Erstelle Basis Konfiguration');
+$GLOBALS['TL_LANG']['tl_tmSettings']['title_legend'] = 'Einstellungen';

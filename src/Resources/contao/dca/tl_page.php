@@ -8,7 +8,7 @@
 
 //added subpalettes
 $GLOBALS['TL_DCA']['tl_page']['palettes']['__selector__'][] = 'tm_active';
-$GLOBALS['TL_DCA']['tl_page']['subpalettes']['tm_active'] = 'tm_intro,tm_submit_all,tm_submit,tm_link,tm_linktext';
+$GLOBALS['TL_DCA']['tl_page']['subpalettes']['tm_active'] = 'tm_intro,tm_submit_all,tm_submit,tm_link,tm_linktext,tm_cookies';
 
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['tm_active'] = array
@@ -70,4 +70,15 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['tm_linktext'] = array
     'inputType'               => 'text',
     'eval'                    => array('mandatory'=>false, 'maxlength'=>255, 'decodeEntities'=>true, 'tl_class'=>'w50'),
     'sql'                     => "varchar(255) NOT NULL default ''"
+);
+
+$GLOBALS['TL_DCA']['tl_page']['fields']['tm_cookies'] = array
+(
+    'label'                   => &$GLOBALS['TL_LANG']['tl_page']['tm_cookies'],
+    'exclude'                 => true,
+    'search'                  => true,
+    'inputType'               => 'checkboxWizard',
+    'foreignKey'              => 'tl_tmSettings.name',
+    'eval'                    => array('mandatory'=>true,'tl_class'=>'w50','multiple'=>true),
+    'sql'                     => "blob NULL"
 );
