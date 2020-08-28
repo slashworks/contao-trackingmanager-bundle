@@ -2,6 +2,7 @@
 
 // Models
 $GLOBALS['TL_MODELS']['tl_tmSettings'] = \Slashworks\ContaoTrackingManagerBundle\Model\TrackingmanagerSettingsModel::class;
+$GLOBALS['TL_MODELS']['tl_tmConfig'] = \Slashworks\ContaoTrackingManagerBundle\Model\TmConfigModel::class;
 
 // Hooks
 $GLOBALS['TL_HOOKS']['generatePage'][] = array('Slashworks\ContaoTrackingManagerBundle\Classes\TrackingManager', 'generatePageHook');
@@ -16,6 +17,7 @@ $GLOBALS['BE_MOD']['trackingmanager'] = array(
     ),
     'tmConfig' => array
     (
+        'callback' => \Slashworks\ContaoTrackingManagerBundle\Classes\Backend\ConfigDataManager::class,
         'tables'      => array('tl_tmConfig'),
 
     )

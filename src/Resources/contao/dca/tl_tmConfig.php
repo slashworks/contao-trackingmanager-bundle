@@ -77,5 +77,10 @@ $GLOBALS['TL_DCA']['tl_tmConfig'] = array
             'eval' => array(),
             'sql' => "varchar(255) NOT NULL default ''",
         ),
+        'status' => array
+        (
+            'label' => &$GLOBALS['TL_LANG']['tl_tmConfig']['status'],
+            'sql' => "char(1) NOT NULL default ''",
+        ),
     )
 );

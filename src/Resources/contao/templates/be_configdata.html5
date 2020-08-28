@@ -1,0 +1,28 @@
+<div class="statistic_wrapper ">
+    <div class="table tl_listing_container list_view">
+        <h2>Angezeigte und Akzeptierte Cookies</h2>
+        <table class="tl_listing showColumns">
+            <thead>
+            <th class="tl_folder_tlist col_icon">Zeitraum</th>
+            <th class="tl_folder_tlist col_icon">Abfragen</th>
+            <th class="tl_folder_tlist col_icon">User</th>
+            <?php foreach ($this->cookieCollection as $cookies) : ?>
+                <th class="tl_folder_tlist col_icon"><?= $cookies->name; ?></th>
+            <?php endforeach; ?>
+
+            </thead>
+            <tbody>
+            <?php foreach ($this->dataBlock as $name => $block) : ?>
+                <tr class="even click2edit toggle_select hover-row">
+                    <th class="tl_file_list"><?= $GLOBALS['TL_LANG']['tl_tmConfig'][$name]; ?></th>
+                    <td class="tl_file_list"><?= $block['total']; ?></td>
+                    <td class="tl_file_list"><?= $block['user']; ?></td>
+                    <?php foreach ($block['cookies'] as $name => $cookie) : ?>
+                        <td class="tl_file_list"><?= $cookie; ?></td>
+                    <?php endforeach; ?>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

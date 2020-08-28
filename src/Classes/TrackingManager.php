@@ -10,6 +10,7 @@ use Contao\System;
 use Slashworks\ContaoTrackingManagerBundle\Model\TrackingmanagerSettingsModel;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Contao\Controller;
+use Symfony\Component\VarDumper\VarDumper;
 
 class TrackingManager
 {
@@ -57,14 +58,12 @@ class TrackingManager
 
             // save cookie settings in DB
             if ($frontendSession->has('tm_config_set')) {
-                if (!TrackingManagerStatus::getCookieStatus($objBaseCookie->name)) {
                     $configModel = new TmConfigModel();
                     $configModel->pid = $session->getId();
                     $configModel->tstamp = date('U');
-                    $configModel->title = $objCookieSettings->label;
+                    $configModel->title = $objCookieSettings->current()->name;
+                    $configModel->status = TrackingManagerStatus::getCookieStatus($objCookieSettings->current()->name);
                     $configModel->save();
-                }
-
             }
 
             $objCookieSettings->descriptions = \StringUtil::deserialize($objCookieSettings->descriptions);
