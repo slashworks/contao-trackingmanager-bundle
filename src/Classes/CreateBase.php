@@ -30,6 +30,7 @@ class CreateBase extends Backend
         $objModel->name = 'tm_base';
         $objModel->label = 'System relevante Cookies (erforderlich)';
         $objModel->published = '1';
+        $objModel->tstamp = time();
         $objModel->isBaseCookie = '1';
         $objModel->descriptions = serialize(array(
             array(
@@ -55,6 +56,7 @@ class CreateBase extends Backend
         $objModel->name = 'bozi_ga';
         $objModel->label = 'Google Analytics Tracking';
         $objModel->published = '1';
+        $objModel->tstamp = time();
         $objModel->descriptions = serialize(array(
             array(
                 'label' => '_ga',
@@ -83,6 +85,7 @@ class CreateBase extends Backend
         $objModel->name = 'bozi_fbp';
         $objModel->label = 'Facebook Pixel';
         $objModel->published = '1';
+        $objModel->tstamp = time();
         $objModel->descriptions = serialize(array(
             array(
                 'label' => '_fbp',
@@ -103,6 +106,7 @@ class CreateBase extends Backend
         $objModel->name = 'bozi_gmaps';
         $objModel->label = 'Google Maps';
         $objModel->published = '1';
+        $objModel->tstamp = time();
         $objModel->descriptions = serialize(array(
             array(
 //                'label' => '_fbp',
