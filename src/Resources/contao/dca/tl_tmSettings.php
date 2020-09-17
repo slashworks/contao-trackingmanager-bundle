@@ -53,7 +53,6 @@ $GLOBALS['TL_DCA']['tl_tmSettings'] = array
                 'href' => 'act=delete',
                 'icon' => 'delete.svg',
                 'attributes' => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"',
-//                'button_callback'     => array('tl_tmSettings', 'deleteEntry')
 
             ),
             'toggle' => array
@@ -172,25 +171,6 @@ $GLOBALS['TL_DCA']['tl_tmSettings'] = array
 
 class tl_tmSettings extends \Contao\Backend
 {
-
-
-    /**
-     * Return the delete calendar button
-     *
-     * @param array $row
-     * @param string $href
-     * @param string $label
-     * @param string $title
-     * @param string $icon
-     * @param string $attributes
-     *
-     * @return string
-     */
-    public function deleteEntry($row, $href, $label, $title, $icon, $attributes)
-    {
-        return $this->User->hasAccess('delete', 'calendarp') ? '<a href="' . $this->addToUrl($href . '&amp;id=' . $row['id']) . '" title="' . Contao\StringUtil::specialchars($title) . '"' . $attributes . '>' . Contao\Image::getHtml($icon, $label) . '</a> ' : Contao\Image::getHtml(preg_replace('/\.svg/i', '_.svg', $icon)) . ' ';
-    }
-
 
     /**
      * Return the "toggle visibility" button
