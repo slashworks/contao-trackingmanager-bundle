@@ -38,7 +38,6 @@ $GLOBALS['TL_DCA']['tl_tmSettings'] = array
             (
                 'href'                => 'key=createBase',
                 'class'               => 'header_theme_import',
-//                'button_callback'     => array('tl_theme', 'importTheme')
             ),
         ),
         'operations' => array
