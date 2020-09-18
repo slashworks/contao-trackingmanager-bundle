@@ -35,10 +35,6 @@ class StatisticsDataManager extends BackendModule
      */
     protected function compile()
     {
-        $combiner = new \Combiner();
-        $combiner->add('/bundles/contaotrackingmanager/css/backend.scss');
-        $GLOBALS['TL_CSS'][] = $combiner->getCombinedFile();
-
         $this->getCookieCollection();
 
         $arrTimeConfig = array(

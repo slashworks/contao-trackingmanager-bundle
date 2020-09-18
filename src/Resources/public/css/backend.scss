@@ -1,7 +1,11 @@
 
-#tl_navigation .group-trackingmanager {
-    background: url('/bundles/contaotrackingmanager/img/cookies.svg') 3px 2px no-repeat;
-    background-size: 13px 13px;
+#tl_navigation {
+
+    .group-trackingmanager {
+        background: url('/bundles/contaotrackingmanager/img/cookies.svg') 3px 2px no-repeat;
+        background-size: 13px 13px;
+    }
+
 }
 
 .statistic_wrapper {

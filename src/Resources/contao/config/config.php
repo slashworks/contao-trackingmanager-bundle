@@ -23,3 +23,11 @@ $GLOBALS['BE_MOD']['trackingmanager'] = array(
 
     )
 );
+
+if (TL_MODE === 'FE') {
+
+} else {
+    $combiner = new \Combiner();
+    $combiner->add('/bundles/contaotrackingmanager/css/backend.scss');
+    $GLOBALS['TL_CSS'][] = $combiner->getCombinedFile();
+}
