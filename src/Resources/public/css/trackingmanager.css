@@ -1,99 +1,157 @@
 
 .trackingmanager {
-    position: fixed;
-    max-height: 100vh;
-    overflow: auto;
-    font-size: .85em;
-    line-height: 1.4;
-    z-index: 10000;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -100%);
-    background: rgba(255, 255, 255, 1);
+    background: white;
+    border: 1px solid;
+    bottom: 32px;
+    box-shadow: 0 8px 16px -8px rgba(0, 0, 0, .24);
+    color: black;
+    left: 32px;
+    max-height: calc(100vh - 64px);
     max-width: 100%;
-    width: 500px;
-    color: rgba(50,50,50,1);
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-top: 30px;
-    padding-bottom: 20px;
+    overflow: auto;
+    position: fixed;
     transition: .8s transform ease;
-    box-shadow:rgba(0,0,0,.3) 0 0 20px;
+    width: 500px;
+    z-index: 10000;
 }
 
-.trackingmanager.ready{
-    transform: translate(-50%,0);
+.trackingmanager.ready {
+
 }
 
-.trackingmanager .intro{
-    padding: 0px 0 30px;
-    /*border-bottom: 1px solid #ccc;*/
+.trackingmanager .header {
+    border-bottom: 1px solid;
+    padding: 24px 32px;
+    text-align: center;
+}
+
+.trackingmanager .header-title {
+    align-items: center;
+    display: inline-flex;
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.trackingmanager .header-title svg {
+    margin-right: 16px;
+}
+
+.trackingmanager .header-title .text + svg {
+    margin-left: 16px;
+    margin-right: 0;
+}
+
+.trackingmanager .intro {
+    padding: 24px 32px;
 }
 
 /* accept area
 ========================================================================== */
 
-.tm_accept{
-    margin-bottom: 30px;
-}
-
-.tm_submit_all{
-    width: 100%;
-}
-
-#tm_denied{
-    display: block;
+.tm-submit-all-wrapper {
+    margin-bottom: 32px;
     text-align: center;
-    margin-top: 5px;
 }
 
-#tm_more{
+.tm-more-wrapper {
+    margin-bottom: 24px;
     text-align: center;
-    display: block;
-    margin-bottom: 15px;
+}
+
+#tm_more {
+    align-items: center;
+    display: inline-flex;
+}
+
+#tm_more svg {
+    margin-right: 8px;
+}
+
+#tm_more .text + svg {
+    margin-left: 8px;
+    margin-right: 0;
 }
 
 /* form area
 ========================================================================== */
 
-form#trackingmanager{
+.trackingmanager form {
     display: none;
+    padding: 0 32px 24px;
 }
 
 .trackingmanager .row_wrapper {
-    background: rgba(245,245,245,1);
+
+}
+
+.trackingmanager .cookie-row + .cookie-row {
+    margin-top: -1px;
 }
 
 .trackingmanager .row {
     border-bottom: 1px solid #ccc;
-    position: relative;
     padding: 5px 20px 5px 5px;
+    position: relative;
 }
 
-.trackingmanager .row:last-child{
+.trackingmanager .row:last-child {
     border-bottom: none;
 }
 
-.trackingmanager .tm_chkbx {
-    display: inline-block;
-    outline: none;
+.trackingmanager .widget {
+    background: #eee;
+    border: 1px solid;
+}
+
+.trackingmanager .checkbox_container {
     border: none;
-    box-shadow: none;
-    width: 20px;
+    margin: 0;
+    padding: 16px 50px 16px 24px;
 }
-.trackingmanager .tm_submit{
+
+.trackingmanager .info {
+    background: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    height: 24px;
+    position: absolute;
+    right: 24px;
+    top: 16px;
+    width: 24px;
+}
+
+.trackingmanager .info svg {
+    height: 100%;
     width: 100%;
-    margin-left: auto;
-    margin-right: auto;
 }
 
-.trackingmanager .hint{
+.trackingmanager .info-close {
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+}
+
+.trackingmanager .cookie-row.open .info-open {
+    opacity: 0;
+}
+
+.trackingmanager .cookie-row.open .info-close {
+    opacity: 1;
+}
+
+.trackingmanager .submit_container {
+    margin-top: 16px;
     text-align: center;
-    padding: 30px 0 0 0;
-    color: #ccc;
 }
 
-.trackingmanager .hint a{
+.trackingmanager .hint {
+    color: #ccc;
+    padding: 30px 0 0 0;
+    text-align: center;
+}
+
+.trackingmanager .hint a {
     color: #999;
     font-size: 12px;
 }
@@ -101,44 +159,25 @@ form#trackingmanager{
 /* description
 ========================================================================== */
 
-.trackingmanager .cookie_desc{
-    padding: 5px 15px;
-    font-size: .75em;
+.trackingmanager .cookie_desc {
+    border: 1px solid;
+    border-top: none;
     display: none;
+    padding: 16px 24px;
 }
 
-.trackingmanager .info{
-    position: absolute;
-    cursor: pointer;
-    top:5px;
-    right: 5px;
-    background: #fff;
-    padding: 5px;
-    border-radius: 50%;
-    line-height: 1;
-    line-height: 15px;
-    width: 15px;
-    height: 15px;
-    text-align: center;
-}
-
-.trackingmanager .cookie_desc dl{
+.trackingmanager .cookie_desc dl {
     display: grid;
+    grid-column-gap: 12px;
+    grid-row-gap: 8px;
     grid-template-columns: 1fr 4fr;
-    grid-row-gap: 10px;
-    grid-column-gap: 0;
 }
 
 .trackingmanager .cookie_desc dt {
-    /*border-bottom: 1px dashed #ccc;*/
     margin: 0;
-    /*padding-bottom: 10px;*/
 }
 
 .trackingmanager .cookie_desc dd {
-    padding-left: 5px;
-    /*border-bottom: 1px dashed #ccc;*/
     margin-left: 0;
-    /*padding-bottom: 10px;*/
+    padding-left: 5px;
 }
-

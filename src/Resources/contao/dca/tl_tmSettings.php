@@ -4,10 +4,14 @@ $GLOBALS['TL_DCA']['tl_tmSettings'] = array
 (
 
     // Config
-    'config' => array
+    'config'      => array
     (
         'dataContainer' => 'Table',
-        'sql' => array
+        'onload_callback' => array
+        (
+            array(\Slashworks\ContaoTrackingManagerBundle\DataContainer\TmSettings::class, 'onloadCallback'),
+        ),
+        'sql'           => array
         (
             'keys' => array
             (
@@ -17,62 +21,62 @@ $GLOBALS['TL_DCA']['tl_tmSettings'] = array
     ),
 
     // List
-    'list' => array
+    'list'        => array
     (
-        'sorting' => array
+        'sorting'           => array
         (
-            'mode' => 1,
-            'fields' => array('name'),
-            'icon' => 'pagemounts.svg',
-            'panelLayout' => 'filter;search,sort',
+            'mode'            => 1,
+            'fields'          => array('name'),
+            'icon'            => 'pagemounts.svg',
+            'panelLayout'     => 'filter;search,sort',
             'disableGrouping' => true,
         ),
-        'label' => array
+        'label'             => array
         (
-            'fields' => array('name'),
-            'showColumns' => true
+            'fields'      => array('name'),
+            'showColumns' => true,
         ),
         'global_operations' => array
         (
             'createBase' => array
             (
-                'href'                => 'key=createBase',
-                'class'               => 'header_theme_import',
+                'href'  => 'key=createBase',
+                'class' => 'header_theme_import',
             ),
         ),
-        'operations' => array
+        'operations'        => array
         (
-            'edit' => array
+            'edit'   => array
             (
                 'href' => 'act=edit',
                 'icon' => 'edit.svg',
             ),
             'delete' => array
             (
-                'href' => 'act=delete',
-                'icon' => 'delete.svg',
+                'href'       => 'act=delete',
+                'icon'       => 'delete.svg',
                 'attributes' => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"',
 
             ),
             'toggle' => array
             (
-                'icon' => 'visible.svg',
-                'attributes' => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
+                'icon'            => 'visible.svg',
+                'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
                 'button_callback' => array('tl_tmSettings', 'toggleIcon'),
-                'showInHeader' => true
+                'showInHeader'    => true,
             ),
-            'show' => array
+            'show'   => array
             (
                 'href' => 'act=show',
-                'icon' => 'show.svg'
-            )
+                'icon' => 'show.svg',
+            ),
         ),
     ),
 
     // Palettes
-    'palettes' => array
+    'palettes'    => array
     (
-        'default' => '{title_legend},name,label,descriptions,isBaseCookie,published',
+        'default' => '{title_legend},name,label,descriptions,isBaseCookie,published;{template_legend},templates',
     ),
 
     // Subpalettes
@@ -80,91 +84,101 @@ $GLOBALS['TL_DCA']['tl_tmSettings'] = array
     (),
 
     // Fields
-    'fields' => array
+    'fields'      => array
     (
-        'id' => array
+        'id'           => array
         (
             'label' => array('ID'),
-            'sql' => "int(10) unsigned NOT NULL auto_increment",
+            'sql'   => "int(10) unsigned NOT NULL auto_increment",
         ),
-        'tstamp' => array
+        'tstamp'       => array
         (
-            'label' => &$GLOBALS['TL_LANG']['tl_tmSettings']['tstamp'],
+            'label'   => &$GLOBALS['TL_LANG']['tl_tmSettings']['tstamp'],
             'sorting' => true,
-            'sql' => "int(10) unsigned NOT NULL default '0'"
+            'sql'     => "int(10) unsigned NOT NULL default '0'",
         ),
-        'pid' => array
+        'pid'          => array
         (
             'label' => &$GLOBALS['TL_LANG']['tl_tmConfig']['pid'],
-            'sql' => "varchar(255) NOT NULL default ''",
+            'sql'   => "varchar(255) NOT NULL default ''",
         ),
-        'name' => array
+        'name'         => array
         (
-            'label' => &$GLOBALS['TL_LANG']['tl_tmSettings']['name'],
-            'exclude' => true,
-            'search' => true,
-            'sorting' => true,
+            'label'     => &$GLOBALS['TL_LANG']['tl_tmSettings']['name'],
+            'exclude'   => true,
+            'search'    => true,
+            'sorting'   => true,
             'inputType' => 'text',
-            'eval' => array('tl_class' => 'w50'),
-            'sql' => "varchar(255) NOT NULL default ''",
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "varchar(255) NOT NULL default ''",
         ),
-        'label' => array
+        'label'        => array
         (
-            'label' => &$GLOBALS['TL_LANG']['tl_tmSettings']['label'],
-            'exclude' => true,
-            'search' => true,
-            'sorting' => true,
+            'label'     => &$GLOBALS['TL_LANG']['tl_tmSettings']['label'],
+            'exclude'   => true,
+            'search'    => true,
+            'sorting'   => true,
             'inputType' => 'text',
-            'eval' => array('tl_class' => 'w50'),
-            'sql' => "varchar(255) NOT NULL default ''",
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "varchar(255) NOT NULL default ''",
         ),
         'isBaseCookie' => array
         (
-            'label' => &$GLOBALS['TL_LANG']['tl_tmSettings']['isBaseCookie'],
-            'exclude' => true,
-            'search' => true,
-            'sorting' => true,
+            'label'     => &$GLOBALS['TL_LANG']['tl_tmSettings']['isBaseCookie'],
+            'exclude'   => true,
+            'search'    => true,
+            'sorting'   => true,
             'inputType' => 'checkbox',
-            'eval' => array('tl_class' => 'w50'),
-            'sql' => "varchar(255) NOT NULL default ''",
+            'eval'      => array('submitOnChange' => true, 'tl_class' => 'w50'),
+            'sql'       => "varchar(255) NOT NULL default ''",
         ),
-        'published' => array
+        'published'    => array
         (
-            'label' => &$GLOBALS['TL_LANG']['tl_tmSettings']['published'],
-            'exclude' => true,
-            'search' => true,
-            'sorting' => true,
+            'label'     => &$GLOBALS['TL_LANG']['tl_tmSettings']['published'],
+            'exclude'   => true,
+            'search'    => true,
+            'sorting'   => true,
             'inputType' => 'checkbox',
-            'eval' => array('tl_class' => 'w50'),
-            'sql' => "varchar(255) NOT NULL default ''",
+            'eval'      => array('tl_class' => 'w50'),
+            'sql'       => "varchar(255) NOT NULL default ''",
         ),
         'descriptions' => array
         (
-            'label' => &$GLOBALS['TL_LANG']['tl_tmSettings']['descriptions'],
-            'exclude' => true,
-            'inputType' => 'multiColumnWizard',
+            'label'       => &$GLOBALS['TL_LANG']['tl_tmSettings']['descriptions'],
+            'exclude'     => true,
+            'inputType'   => 'multiColumnWizard',
             'dragAndDrop' => true,
-            'eval' => [
+            'eval'        => [
                 // add this line for hide one or all buttons
 
                 'columnFields' => [
-                    'label' => [
-                        'label' => &$GLOBALS['TL_LANG']['tl_tmSettings']['descriptionLabel'],
-                        'exclude' => true,
+                    'label'       => [
+                        'label'     => &$GLOBALS['TL_LANG']['tl_tmSettings']['descriptionLabel'],
+                        'exclude'   => true,
                         'inputType' => 'text',
                     ],
                     'description' => [
-                        'label' => &$GLOBALS['TL_LANG']['tl_tmSettings']['description'],
-                        'exclude' => true,
+                        'label'     => &$GLOBALS['TL_LANG']['tl_tmSettings']['description'],
+                        'exclude'   => true,
                         'inputType' => 'text',
-                        'eval' => ['preserveTags'=>true,'allowHtml'=>true],
+                        'eval'      => ['preserveTags' => true, 'allowHtml' => true],
                     ],
                 ],
-                'tl_class' => 'm12 clr'
+                'tl_class'     => 'm12 clr',
             ],
-            'sql' => 'blob NULL',
-        )
-    )
+            'sql'         => 'blob NULL',
+        ),
+        'templates'    => array
+        (
+            'inputType'        => 'select',
+            'options_callback' => array(
+                \Slashworks\ContaoTrackingManagerBundle\DataContainer\TmSettings::class,
+                'getTemplates',
+            ),
+            'eval'             => array('multiple' => true, 'chosen' => true),
+            'sql'              => "blob NULL",
+        ),
+    ),
 );
 
 
@@ -174,7 +188,7 @@ class tl_tmSettings extends \Contao\Backend
     /**
      * Return the "toggle visibility" button
      *
-     * @param array $row
+     * @param array  $row
      * @param string $href
      * @param string $label
      * @param string $title
@@ -186,7 +200,8 @@ class tl_tmSettings extends \Contao\Backend
     public function toggleIcon($row, $href, $label, $title, $icon, $attributes)
     {
         if (Contao\Input::get('tid')) {
-            $this->toggleVisibility(Contao\Input::get('tid'), (Contao\Input::get('state') == 1), (@func_get_arg(12) ?: null));
+            $this->toggleVisibility(Contao\Input::get('tid'), (Contao\Input::get('state') == 1),
+                (@func_get_arg(12) ?: null));
             $this->redirect($this->getReferer());
         }
 
@@ -197,15 +212,16 @@ class tl_tmSettings extends \Contao\Backend
             $icon = 'invisible.svg';
         }
 
-        return '<a href="' . $this->addToUrl($href) . '" title="' . Contao\StringUtil::specialchars($title) . '"' . $attributes . '>' . Contao\Image::getHtml($icon, $label, 'data-state="' . ($row['published'] ? 1 : 0) . '"') . '</a> ';
+        return '<a href="' . $this->addToUrl($href) . '" title="' . Contao\StringUtil::specialchars($title) . '"' . $attributes . '>' . Contao\Image::getHtml($icon,
+                $label, 'data-state="' . ($row['published'] ? 1 : 0) . '"') . '</a> ';
     }
 
 
     /**
      * Disable/enable a user group
      *
-     * @param integer $intId
-     * @param boolean $blnVisible
+     * @param integer              $intId
+     * @param boolean              $blnVisible
      * @param Contao\DataContainer $dc
      *
      * @throws Contao\CoreBundle\Exception\AccessDeniedException
@@ -223,8 +239,8 @@ class tl_tmSettings extends \Contao\Backend
         // Set the current record
         if ($dc) {
             $objRow = $this->Database->prepare("SELECT * FROM tl_tmSettings WHERE id=?")
-                ->limit(1)
-                ->execute($intId);
+                                     ->limit(1)
+                                     ->execute($intId);
 
             if ($objRow->numRows) {
                 $dc->activeRecord = $objRow;
@@ -235,7 +251,7 @@ class tl_tmSettings extends \Contao\Backend
 
         // Update the database
         $this->Database->prepare("UPDATE tl_tmSettings SET tstamp=$time, published='" . ($blnVisible ? '1' : '') . "' WHERE id=?")
-            ->execute($intId);
+                       ->execute($intId);
 
         if ($dc) {
             $dc->activeRecord->tstamp = $time;

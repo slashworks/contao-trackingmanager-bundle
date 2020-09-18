@@ -3,6 +3,10 @@
 namespace Slashworks\ContaoTrackingManagerBundle\Classes;
 
 
+use Contao\PageModel;
+use Slashworks\ContaoTrackingManagerBundle\Model\TrackingmanagerSettingsModel;
+use Symfony\Component\VarDumper\VarDumper;
+
 class TrackingManagerStatus
 {
 
@@ -13,12 +17,26 @@ class TrackingManagerStatus
      * 0 = no tracking allowed
      * 1 = allow trackingCookies
      */
-    public static function getTreckingStatus()
+    public static function getTrackingStatus()
     {
         // TODO rausfinden zu was man das gebrauchen kann
         return 0;
     }
 
+    public static function isBaseCookieSet()
+    {
+        /** @var PageModel $objPage */
+        global $objPage;
+
+        $rootPage = PageModel::findByPk($objPage->rootId);
+        $baseCookie = TrackingmanagerSettingsModel::getBaseCookieByRootPage($rootPage);
+
+        if ($baseCookie === null) {
+            return false;
+        }
+
+        return \Input::cookie($baseCookie->name);
+    }
 
     /**
      * @return array
@@ -27,13 +45,11 @@ class TrackingManagerStatus
      */
     public static function getCookieStatus($name)
     {
-
-        if(\Input::cookie($name)){
+        if (\Input::cookie($name) && static::isBaseCookieSet()) {
             return true;
         };
 
         return false;
-
     }
 
     /**

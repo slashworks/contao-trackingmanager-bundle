@@ -11,12 +11,19 @@ Class TrackingmanagerSettingsModel extends Model
 
     protected static $strTable = 'tl_tmSettings';
 
-
     /**
-     * @param PageModel $objRootPage
+     * @param PageModel|null $objRootPage
+     *
      * @return Model|Model[]|Model\Collection|null
      */
-    public static function getCookiesByRootpage(PageModel $objRootPage){
+    public static function getCookiesByRootpage(PageModel $objRootPage = null)
+    {
+        if ($objRootPage === null) {
+            /** @var PageModel $objPage */
+            global $objPage;
+
+            $objRootPage = PageModel::findByPk($objPage->rootId);
+        }
 
         $arrCookies = StringUtil::deserialize($objRootPage->tm_cookies);
         $arrCookies = implode(',',$arrCookies);
@@ -28,26 +35,25 @@ Class TrackingmanagerSettingsModel extends Model
         $objCookieSettings = self::find($arrOptions);
 
         return $objCookieSettings;
-
     }
 
     /**
      * @param PageModel $objRootPage
      * @return Model|Model[]|Model\Collection|null
      */
-    public static function getBaseCookieByRootPage(PageModel $objRootPage){
-
+    public static function getBaseCookieByRootPage(PageModel $objRootPage)
+    {
         $arrCookies = StringUtil::deserialize($objRootPage->tm_cookies);
         $arrCookies = implode(',',$arrCookies);
 
         $arrOptions = array(
-            'column' => array('published = 1 and id IN('.$arrCookies.') and isBaseCookie = 1')
+            'column' => array('published = 1 and id IN('.$arrCookies.') and isBaseCookie = 1'),
+            'return' => 'Model',
         );
 
         $objCookieSettings = self::find($arrOptions);
 
         return $objCookieSettings;
-
     }
 
 }

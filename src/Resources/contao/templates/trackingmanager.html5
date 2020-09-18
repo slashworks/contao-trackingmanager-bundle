@@ -1,56 +1,71 @@
 <?php if ($this->cookies): ?>
     <div class="trackingmanager">
 
-        <?php if ($this->intro): ?>
+        <?php if ($this->headline): ?>
+            <div class="header">
+                <div class="header-title">
+                    <span class="icon">
+                        <svg class="svg-icon icon-cookies" viewBox="0 0 32 32" width="32" height="32">
+                            <path d="M27.84 16.66l-1.25-1.56.78-.62A7.008 7.008 0 0023 2c-2.13 0-4.12.96-5.46 2.63l-.63.78-1.56-1.25.63-.78C17.71 1.23 20.26 0 23 0c4.96 0 9 4.04 9 9 0 2.75-1.23 5.31-3.38 7.03l-.78.63zM26 19c0-7.17-5.83-13-13-13S0 11.83 0 19s5.83 13 13 13 13-5.83 13-13zm-2 0c0 6.07-4.93 11-11 11S2 25.07 2 19 6.93 8 13 8s11 4.93 11 11zm-11.59-5L10 11.59 8.59 13 11 15.41 12.41 14zm12-8L22 3.59 20.59 5 23 7.41 24.41 6zm-5 16L17 19.59 15.59 21 18 23.41 19.41 22zm-10-3L8 17.59 5.59 20 7 21.41 9.41 19zM13 23h-2v3h2v-3zm5-10h-2v3h2v-3zm10.41-4L27 7.59 24.59 10 26 11.41 28.41 9z"></path>
+                        </svg>
+                    </span>
 
+                    <span class="text"><?php echo $this->headline; ?></span>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($this->intro): ?>
             <div class="intro">
                 <?php echo $this->intro; ?>
-                <?php if ($this->url) : ?><a href="<?php echo $this->url; ?>"
-                                             target="_blank"><?php echo $this->linktext; ?></a><?php endif; ?>
             </div>
 
-            <div class="tm_accept">
-                <button type="submit" class="tm_submit_all button btn submit"><?php echo $this->submit_all; ?></button>
-                <!--                <a href="#" id="tm_denied">Ablehnen</a>-->
+            <div class="tm-submit-all-wrapper">
+                <button type="submit" class="tm_submit_all button button-small"><?php echo $this->submit_all; ?></button>
             </div>
 
-            <a href="#" id="tm_more"><?= $GLOBALS['TL_LANG']['MSC']['tm_details']; ?></a>
-
+            <div class="tm-more-wrapper">
+                <a href="#" id="tm_more">
+                    <svg class="svg-icon icon-information" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+                        <path d="M8 6c-.6 0-1-.4-1-1s.4-1 1-1 1 .4 1 1-.4 1-1 1zm1 6H7V7h2v5zM8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8z"/>
+                    </svg>
+                    <span class="text"><?php echo $this->details; ?></span>
+                </a>
+            </div>
         <?php endif; ?>
 
         <form action="" id="trackingmanager">
             <div class="row_wrapper">
 
-                <?php foreach ($this->cookies as $cookie) : ?>
-                    <div class="row widget widget-checkbox">
+                <?php foreach ($this->cookies as $cookie): ?>
+                    <div class="cookie-row" style="position: relative;">
+                        <?php echo $cookie['widget']; ?>
 
-                        <fieldset class="checkbox_container">
-                            <span><input type="checkbox"
-                                         value="<?php echo ($cookie->name == $this->baseCookieName) ? $this->config : '1'; ?>"
-                                         class="tm_chkbx"
-                                         id="<?php echo $cookie->name; ?>" <?php if ($cookie->name == $this->baseCookieName): ?> readonly checked disabled<?php endif; ?>></span>
-                            <label for="<?php echo $cookie->name; ?>"><?php echo $cookie->label; ?></label>
-                        </fieldset>
-
-                        <?php if ($cookie->descriptions and count($cookie->descriptions) > 0) : ?>
-                            <span class="info">&#x2139;</span>
+                        <?php if ($cookie['descriptions'] and count($cookie['descriptions']) > 0) : ?>
+                            <span class="info">
+                                <svg class="info-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path fill-rule="evenodd" d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5 13h-4v4c0 .6-.4 1-1 1s-1-.4-1-1v-4H7c-.6 0-1-.4-1-1s.4-1 1-1h4V7c0-.6.4-1 1-1s1 .4 1 1v4h4c.6 0 1 .4 1 1s-.4 1-1 1z" clip-rule="evenodd"/>
+                                </svg>
+                                <svg class="info-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5 13H7c-.6 0-1-.4-1-1s.4-1 1-1h10c.6 0 1 .4 1 1s-.4 1-1 1z"/>
+                                </svg>
+                            </span>
                             <div class="cookie_desc">
                                 <dl>
-                                    <?php foreach ($cookie->descriptions as $description) : ?>
+                                    <?php foreach ($cookie['descriptions'] as $description) : ?>
                                         <dt><?= $description['label']; ?></dt>
                                         <dd><?= $description['description']; ?></dd>
                                     <?php endforeach; ?>
                                 </dl>
                             </div>
                         <?php endif; ?>
-
                     </div>
-
                 <?php endforeach; ?>
             </div>
 
-            <button type="submit" class="tm_submit button btn submit"><?php echo $this->submit; ?></button>
-
+            <div class="submit_container">
+                <button type="submit" class="tm_submit button button-small btn submit"><?php echo $this->submit; ?></button>
+            </div>
 
         </form>
 

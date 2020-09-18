@@ -9,6 +9,9 @@
       "homepage": "https://github.com/slashworks"
     }
   ],
+  "require": {
+    "menatwork/contao-multicolumnwizard-bundle": "^3.4"
+  },
   "extra": {
     "contao-manager-plugin": "Slashworks\\ContaoTrackingManagerBundle\\ContaoManager\\Plugin"
   },

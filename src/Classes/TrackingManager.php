@@ -2,6 +2,8 @@
 
 namespace Slashworks\ContaoTrackingManagerBundle\Classes;
 
+use Contao\FormCheckBox;
+use Contao\StringUtil;
 use Slashworks\ContaoTrackingManagerBundle\Model\TmConfigModel;
 use Contao\Frontend;
 use Contao\FrontendTemplate;
@@ -20,81 +22,113 @@ class TrackingManager
     /**
      *
      */
-    public function generatePageHook(\PageModel $objPage, \LayoutModel $objLayout, \PageRegular $objPageRegular)
+    public function generatePageHook(\PageModel $page, \LayoutModel $layout, \PageRegular $pageRegular)
     {
-        if ($objPage->type != "regular") {
+        if ($page->type != "regular") {
             return;
         }
 
-        $objRootPage = PageModel::findById($objPage->rootId);
+        $rootPage = PageModel::findById($page->rootId);
 
-        if (!$objRootPage->tm_active) {
+        if (!$rootPage->tm_active) {
             return;
         }
 
-        //check sessionbag to save saved config
+        // check sessionbag to save saved config
         /** @var SessionInterface $session */
         $session = System::getContainer()->get('session');
         $frontendSession = $session->getBag('contao_frontend');
 
-
-        $objCookieSettings = TrackingmanagerSettingsModel::getCookiesByRootpage($objRootPage);
-        $objBaseCookie = TrackingmanagerSettingsModel::getBaseCookieByRootPage($objRootPage);
-
-//      $objCookieSettings = TrackingmanagerSettingsModel::findBy('published', '1');
-//      $objBaseCookie = TrackingmanagerSettingsModel::findOneBy('isBaseCookie', '1');
+        $cookieSettings = TrackingmanagerSettingsModel::getCookiesByRootpage($rootPage);
+        $baseCookie = TrackingmanagerSettingsModel::getBaseCookieByRootPage($rootPage);
 
         // get cookies set vs available values
-        if (NULL == $objCookieSettings) {
-            System::log("No Cookies selected in Root Page", __METHOD__, TL_GENERAL);
+        if ($cookieSettings === null) {
+            System::log('No Cookies selected in Root Page', __METHOD__, TL_GENERAL);
             return;
         }
-        if (NULL == $objBaseCookie) {
-            System::log("No BaseCookie selected in Root Page", __METHOD__, TL_GENERAL);
+        if ($baseCookie === null) {
+            System::log('No BaseCookie selected in Root Page', __METHOD__, TL_GENERAL);
             return;
         }
 
-        while ($objCookieSettings->next()) {
-
+        while ($cookieSettings->next()) {
             // save cookie settings in DB
             if ($frontendSession->has('tm_config_set')) {
                     $configModel = new TmConfigModel();
                     $configModel->pid = $session->getId();
                     $configModel->tstamp = date('U');
-                    $configModel->title = $objCookieSettings->current()->name;
-                    $configModel->status = TrackingManagerStatus::getCookieStatus($objCookieSettings->current()->name);
+                    $configModel->title = $cookieSettings->current()->name;
+                    $configModel->status = TrackingManagerStatus::getCookieStatus($cookieSettings->current()->name);
                     $configModel->save();
             }
+            $cookie = $cookieSettings->row();
+            $cookie['descriptions'] = StringUtil::deserialize($cookie['descriptions']);
 
-            $objCookieSettings->descriptions = \StringUtil::deserialize($objCookieSettings->descriptions);
-            $arrCookies[$objCookieSettings->name] = $objCookieSettings->current();
+            $arrCookies[$cookieSettings->name] = $cookie;
         }
 
         $frontendSession->remove('tm_config_set');
 
         // template and frontend logic
         $config = sha1(serialize($arrCookies));
-        $savedConfig = TrackingManagerStatus::getCookieValue($objBaseCookie->name);
+        $savedConfig = TrackingManagerStatus::getCookieValue($baseCookie->name);
 
-        if (!TrackingManagerStatus::getCookieStatus($objBaseCookie->name) or ($config != $savedConfig)) {
-            $objTpl = new FrontendTemplate($this->strTemplate);
-            $objTpl->intro = $objRootPage->tm_intro;
-            if ($objRootPage->tm_link) {
-                $objTpl->url = Frontend::generateFrontendUrl(PageModel::findBy('id', $objRootPage->tm_link)->row());
+        foreach ($arrCookies as $name => $cookie) {
+            // Generate checkbox widget
+            $widget = new FormCheckBox();
+            $widget->name = $cookie['name'];
+            $widget->id = 'tm_' . $cookie['id'];
+
+            if ($cookie['name'] === $baseCookie->name) {
+                $widget->disabled = true;
             }
-            $objTpl->baseCookieName = $objBaseCookie->name;
-            $objTpl->linktext = $objRootPage->tm_linktext;
-            $objTpl->submit_all = $objRootPage->tm_submit_all;
-            $objTpl->submit = $objRootPage->tm_submit;
-            $objTpl->cookies = $arrCookies;
-            $objTpl->config = sha1(serialize($arrCookies));
 
-            $GLOBALS['TL_BODY'][] = Controller::replaceInsertTags($objTpl->parse());
+            $widget->options = array
+            (
+                array
+                (
+                    'value' => ($cookie['name'] === $baseCookie->name) ? $config : '1',
+                    'default' => ($cookie['name'] === $baseCookie->name),
+                    'label' => $cookie['label'],
+                ),
+            );
+
+            $arrCookies[$name]['widget'] = $widget->parse();
+        }
+
+        if (!TrackingManagerStatus::getCookieStatus($baseCookie->name) || ($config != $savedConfig)) {
+            $template = new FrontendTemplate($this->strTemplate);
+            $template->headline = $rootPage->tm_headline;
+            $template->intro = $rootPage->tm_intro;
+
+            if ($rootPage->tm_link) {
+                $linkUrl = PageModel::findByPk($rootPage->tm_link)->getFrontendUrl();
+                $linkText = $rootPage->tm_linktext;
+
+                if ($linkText === '') {
+                    $linkText = $linkUrl;
+                }
+
+                $link = sprintf('<a href="%s" target="_blank">%s</a>', $linkUrl, $linkText);
+                $template->intro = str_replace('{{link}}', $link, $template->intro);
+            }
+
+            $template->baseCookieName = $baseCookie->name;
+            $template->linktext = $rootPage->tm_linktext;
+            $template->submit_all = $rootPage->tm_submit_all;
+            $template->details = $rootPage->tm_details;
+            $template->submit = $rootPage->tm_submit;
+            $template->cookies = $arrCookies;
+            $template->config = sha1(serialize($arrCookies));
+
+            $GLOBALS['TL_BODY'][] = Controller::replaceInsertTags($template->parse());
             $GLOBALS['TL_CSS'][] = '/bundles/contaotrackingmanager/css/trackingmanager.css';
 
-            //add js
-            $objJsTemplate = new FrontendTemplate('trackingmanagerjs');
-            $GLOBALS['TL_BODY'][] = $objJsTemplate->parse();
+            // add js
+            $jsTemplate = new FrontendTemplate('trackingmanagerjs');
+            $jsTemplate->cookiesTTL = $rootPage->tm_cookies_ttl;
+            $GLOBALS['TL_BODY'][] = $jsTemplate->parse();
 
             // save config preparation
             /** @var SessionInterface $session */

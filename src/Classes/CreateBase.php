@@ -19,16 +19,14 @@ class CreateBase extends Backend
         \Controller::redirect(\Controller::getReferer());
     }
 
-
     /**
      *
      */
     public function createBaseCookie()
     {
-
         $objModel = new TrackingmanagerSettingsModel();
         $objModel->name = 'tm_base';
-        $objModel->label = 'System relevante Cookies (erforderlich)';
+        $objModel->label = 'systemrelevante Cookies (erforderlich)';
         $objModel->published = '1';
         $objModel->tstamp = time();
         $objModel->isBaseCookie = '1';

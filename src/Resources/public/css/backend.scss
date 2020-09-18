@@ -1,12 +1,18 @@
-.statistic_wrapper{
 
-    h2{
+#tl_navigation .group-trackingmanager {
+    background: url('/bundles/contaotrackingmanager/img/cookies.svg') 3px 2px no-repeat;
+    background-size: 13px 13px;
+}
+
+.statistic_wrapper {
+
+    h2 {
         margin-bottom: 25px;
     }
 
-    .block{
-        padding: 50px 25px;
+    .block {
         border-bottom: 1px solid #ccc;
+        padding: 50px 25px;
     }
 
 }

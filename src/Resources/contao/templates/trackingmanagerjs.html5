@@ -1,117 +1,125 @@
 <script>
-    !(function ($) {
+  !(function ($) {
 
-        var trackingmanager = {
+    var trackingmanager = {
+      init: function() {
+        this.mod = document.querySelector('.trackingmanager');
+        this.form = document.getElementById('trackingmanager');
 
-            /**
-             *
-             */
-            init: function () {
+        this.showFormButton = document.getElementById('tm_more');
+        this.submitAllButton = this.mod.querySelector('.tm_submit_all');
+        this.infoButtons = this.form.querySelectorAll('.info');
+        this.checkboxes = this.form.querySelectorAll('.checkbox');
 
-                this.setEvents()
-                this.toggleForm()
+        this.slideDuration = 400;
+        this.cookiesTTL = <?php echo $this->cookiesTTL; ?>;
 
-                $('.trackingmanager').addClass('ready')
+        this.setEvents();
 
-                //toggle description
-                $('#trackingmanager .info').on('click', function (e) {
-                    e.preventDefault(e)
-                    $(this).next().toggle('fast');
-                });
+        this.mod.classList.add('ready');
+      },
 
-            },
+      setEvents: function() {
+        this.initToggleForm();
+        this.initSubmitAll();
+        this.initSubmitForm();
+        this.initToggleDescription();
+      },
 
-            /**
-             *
-             */
-            toggleForm: function () {
+      initToggleForm: function() {
+        var _self = this;
 
-                var toggler = $('#tm_more');
-                toggler.on('click', function (e) {
-                    e.preventDefault(e)
-                    $('#trackingmanager').toggle();
-                })
+        this.showFormButton.addEventListener('click', function(e) {
+          e.preventDefault();
+          $(_self.form).slideToggle(_self.slideDuration);
+        });
+      },
 
-            },
+      initSubmitAll: function() {
+        var _self = this;
 
-            /**
-             *
-             */
-            setEvents: function () {
+        this.submitAllButton.addEventListener('click', function(e) {
+          e.preventDefault();
 
+          for (var i = 0; i < _self.checkboxes.length; i++) {
+            var checkbox = _self.checkboxes[i];
+            setCookie(checkbox.name, checkbox.value, generateExpiresAfterDays(_self.cookiesTTL));
+          }
 
-                $('.tm_submit_all').on('click', function (e) {
-                    e.preventDefault();
+          location.reload();
+        });
+      },
 
-                    $('.tm_chkbx').each(function (index, el) {
-                        setCookie($(el).attr('id'), $(el).attr('value'), dateString)
-                    })
+      initSubmitForm: function() {
+        var _self = this;
 
-                    location.reload();
+        this.form.addEventListener('submit', function(e) {
+          e.preventDefault();
 
-                })
-                /**
-                 *
-                 */
-                $('#trackingmanager').on('submit', function (e) {
-                    e.preventDefault(e)
+          if ($(_self.checkboxes).filter(':checked').length == 1) {
+            deleteAllCookies();
+          }
 
-                    $('.tm_chkbx').each(function (index, el) {
-                        if ($(el).is(':checked')) {
-                            setCookie($(el).attr('id'), $(el).attr('value'), dateString)
-                        } else {
-                            deleteCookie($(el).attr('id'))
-                        }
-                    })
-                    location.reload();
-                });
+          for (var i = 0; i < _self.checkboxes.length; i++) {
+            var checkbox = _self.checkboxes[i];
 
-                /**
-                 *
-                 */
-                $('#tm_denied').on('click', function (e) {
-                    e.preventDefault(e)
-                    $('.trackingmanager').removeClass('ready');
-                })
-
-
+            if (checkbox.checked) {
+              setCookie(checkbox.name, checkbox.value, generateExpiresAfterDays(_self.cookiesTTL));
+            } else {
+              deleteCookie(checkbox.name);
             }
+          }
 
+          location.reload();
+        });
+      },
 
+      initToggleDescription: function() {
+        var _self = this;
+
+        for (var i = 0; i < this.infoButtons.length; i++) {
+          var infoButton = this.infoButtons[i];
+
+          infoButton.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            $(this).next().slideToggle(_self.slideDuration);
+            $(this).parent().toggleClass('open');
+          });
         }
+      }
 
+    };
 
-        /**
-         * date
-         */
-        var date = new Date();
-        date.setDate(date.getDate() + 30);
-        var dateString = date.toUTCString();
+    var generateExpiresAfterDays = function(days) {
+      var days = parseInt(days);
 
+      var date = new Date();
+      date.setDate(date.getDate() + days);
+      return date.toUTCString();
+    };
 
-        /**
-         *
-         * @param name
-         * @param value
-         * @param expires
-         */
-        var setCookie = function (name, value, expires) {
-            document.cookie = name + '=' + value + '; expires=' + expires;
-        }
+    var setCookie = function(name, value, expires) {
+      document.cookie = name + '=' + value +'; expires=' + expires;
+    };
 
-        /**
-         *
-         * @param name
-         */
-        var deleteCookie = function (name) {
-            document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+    var deleteCookie = function(name) {
+      document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC;'
+    };
 
-        }
+    var deleteAllCookies = function() {
+      var cookies = document.cookie.split(";");
 
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      }
+    };
 
-        $('document').ready(function () {
-            trackingmanager.init();
-        })
-
-    })(jQuery)
+    document.addEventListener('DOMContentLoaded', function() {
+      trackingmanager.init();
+    });
+  })(jQuery)
 </script>
