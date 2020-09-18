@@ -3,7 +3,7 @@
 namespace Slashworks\ContaoTrackingManagerBundle\Classes;
 
 use Contao\Backend;
-use Slashworks\ContaoTrackingManagerBundle\Model\TrackingmanagerSettingsModel;
+use Slashworks\ContaoTrackingManagerBundle\Model\Cookie;
 
 
 class CreateBase extends Backend
@@ -13,8 +13,6 @@ class CreateBase extends Backend
     {
         $this->createBaseCookie();
         $this->createGoogleAnalytics();
-//        $this->createFacebookPixel();
-//        $this->createGoogleMaps();
 
         \Controller::redirect(\Controller::getReferer());
     }
@@ -24,7 +22,7 @@ class CreateBase extends Backend
      */
     public function createBaseCookie()
     {
-        $objModel = new TrackingmanagerSettingsModel();
+        $objModel = new Cookie();
         $objModel->name = 'tm_base';
         $objModel->label = 'systemrelevante Cookies (erforderlich)';
         $objModel->published = '1';
@@ -50,7 +48,7 @@ class CreateBase extends Backend
     public function createGoogleAnalytics()
     {
 
-        $objModel = new TrackingmanagerSettingsModel();
+        $objModel = new Cookie();
         $objModel->name = 'bozi_ga';
         $objModel->label = 'Google Analytics Tracking';
         $objModel->published = '1';
@@ -72,49 +70,5 @@ class CreateBase extends Backend
 
         $objModel->save();
     }
-
-    /**
-     *
-     */
-    public function createFacebookPixel()
-    {
-
-        $objModel = new TrackingmanagerSettingsModel();
-        $objModel->name = 'bozi_fbp';
-        $objModel->label = 'Facebook Pixel';
-        $objModel->published = '1';
-        $objModel->tstamp = time();
-        $objModel->descriptions = serialize(array(
-            array(
-                'label' => '_fbp',
-                'description' => 'Registriert eine eindeutige ID, die verwendet wird, um statistische Daten dazu, wie der Besucher die Website nutzt, zu generieren.<br><strong>Ablaufzeit: 3 Monate</strong>'
-            )
-        ));
-
-        $objModel->save();
-    }
-
-    /**
-     *
-     */
-    public function createGoogleMaps()
-    {
-
-        $objModel = new TrackingmanagerSettingsModel();
-        $objModel->name = 'bozi_gmaps';
-        $objModel->label = 'Google Maps';
-        $objModel->published = '1';
-        $objModel->tstamp = time();
-        $objModel->descriptions = serialize(array(
-            array(
-//                'label' => '_fbp',
-//                'description' => 'Registriert eine eindeutige ID, die verwendet wird, um statistische Daten dazu, wie der Besucher die Website nutzt, zu generieren.<br><strong>Ablaufzeit: 3 Monate</strong>'
-            )
-        ));
-
-        $objModel->save();
-    }
-
-
 
 }

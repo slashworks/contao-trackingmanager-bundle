@@ -4,16 +4,16 @@ namespace Slashworks\ContaoTrackingManagerBundle\Classes\Backend;
 
 use Contao\BackendModule;
 use Contao\Database;
-use Slashworks\ContaoTrackingManagerBundle\Model\TrackingmanagerSettingsModel;
+use Slashworks\ContaoTrackingManagerBundle\Model\Cookie;
 use Symfony\Component\VarDumper\VarDumper;
 
-class ConfigDataManager extends BackendModule
+class StatisticsDataManager extends BackendModule
 {
     /**
      * Template
      * @var string
      */
-    protected $strTemplate = 'be_configdata';
+    protected $strTemplate = 'be_statistics';
 
     /**
      * Generate the module
@@ -29,7 +29,7 @@ class ConfigDataManager extends BackendModule
      *       );
      *
      *  language for template
-     *  $GLOBALS['TL_LANG']['tl_tmConfig']['myRowTitle'] = 'My language variable';
+     *  $GLOBALS['TL_LANG']['tl_tm_statistic']['myRowTitle'] = 'My language variable';
      *
      * @throws \Exception
      */
@@ -77,7 +77,7 @@ class ConfigDataManager extends BackendModule
      */
     protected function getCookieCollection()
     {
-        $this->objCookies = TrackingmanagerSettingsModel::findAll();
+        $this->objCookies = Cookie::findAll();
         $this->Template->cookieCollection = $this->objCookies;
     }
 
@@ -92,11 +92,11 @@ class ConfigDataManager extends BackendModule
         $db = Database::getInstance();
         $where = "tstamp > ".$start->format('U')." and tstamp < ".$end->format('U') ." and status = ".$status;
 
-        $totalCounts = 'SELECT * FROM tl_tmConfig WHERE '.$where.' GROUP by tstamp';
-        $totalUser = 'SELECT * FROM tl_tmConfig WHERE '.$where.' GROUP by pid ';
+        $totalCounts = 'SELECT * FROM tl_tm_statistic WHERE '.$where.' GROUP by tstamp';
+        $totalUser = 'SELECT * FROM tl_tm_statistic WHERE '.$where.' GROUP by pid ';
 
         foreach ($this->objCookies as $key => $cookie) {
-            $cookieCount = "SELECT * FROM tl_tmConfig WHERE title = '" . $cookie->name . "' and ".$where;
+            $cookieCount = "SELECT * FROM tl_tm_statistic WHERE title = '" . $cookie->name . "' and ".$where;
             $arrCookkies[$cookie->name] = $db->query($cookieCount)->numRows;
         }
 

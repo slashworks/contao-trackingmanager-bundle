@@ -4,9 +4,9 @@ namespace Slashworks\ContaoTrackingManagerBundle\Model;
 
 use Contao\Model;
 
-Class TmConfigModel extends Model
+Class Statistic extends Model
 {
 
-    protected static $strTable = 'tl_tmConfig';
+    protected static $strTable = 'tl_tm_statistic';
 
 }

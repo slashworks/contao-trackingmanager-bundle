@@ -10,7 +10,7 @@
 
 //added subpalettes
 $GLOBALS['TL_DCA']['tl_page']['palettes']['__selector__'][] = 'tm_active';
-$GLOBALS['TL_DCA']['tl_page']['subpalettes']['tm_active'] = 'tm_headline,tm_intro,tm_submit_all,tm_details,tm_submit,tm_linktext,tm_link,tm_cookies,tm_cookies_ttl';
+$GLOBALS['TL_DCA']['tl_page']['subpalettes']['tm_active'] = 'tm_headline,tm_intro,tm_submit_all,tm_details,tm_submit,tm_linktext,tm_cookies_ttl,tm_link,tm_cookies';
 
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['tm_active'] = array
@@ -89,6 +89,17 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['tm_link'] = array
     'sql'        => "int(10) unsigned NOT NULL default '0'",
 );
 
+$GLOBALS['TL_DCA']['tl_page']['fields']['tm_cookies_ttl'] = array
+(
+    'label'     => &$GLOBALS['TL_LANG']['tl_page']['tm_cookies_ttl'],
+    'default'   => 30,
+    'exclude'   => true,
+    'search'    => true,
+    'inputType' => 'text',
+    'eval'      => array('mandatory' => true, 'tl_class' => 'w50'),
+    'sql'       => "INT(10) unsigned NOT NULL default '30'",
+);
+
 $GLOBALS['TL_DCA']['tl_page']['fields']['tm_linktext'] = array
 (
     'label'     => &$GLOBALS['TL_LANG']['tl_page']['tm_linktext'],
@@ -105,19 +116,8 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['tm_cookies'] = array
     'exclude'    => true,
     'search'     => true,
     'inputType'  => 'checkboxWizard',
-    'foreignKey' => 'tl_tmSettings.name',
-    'eval'       => array('tl_class' => 'clr w50', 'multiple' => true),
+    'foreignKey' => 'tl_tm_cookie.name',
+    'eval'       => array('multiple' => true, 'tl_class' => 'w50 autoheight'),
     'sql'        => "blob NULL",
     'relation'   => array('type' => 'hasMany', 'load' => 'lazy'),
-);
-
-$GLOBALS['TL_DCA']['tl_page']['fields']['tm_cookies_ttl'] = array
-(
-    'label'     => &$GLOBALS['TL_LANG']['tl_page']['tm_cookies_ttl'],
-    'default'   => 30,
-    'exclude'   => true,
-    'search'    => true,
-    'inputType' => 'text',
-    'eval'      => array('mandatory' => true, 'tl_class' => 'w50'),
-    'sql'       => "INT(10) unsigned NOT NULL default '30'",
 );

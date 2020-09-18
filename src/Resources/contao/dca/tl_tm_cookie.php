@@ -1,6 +1,6 @@
 <?php
 
-$GLOBALS['TL_DCA']['tl_tmSettings'] = array
+$GLOBALS['TL_DCA']['tl_tm_cookie'] = array
 (
 
     // Config
@@ -9,7 +9,7 @@ $GLOBALS['TL_DCA']['tl_tmSettings'] = array
         'dataContainer' => 'Table',
         'onload_callback' => array
         (
-            array(\Slashworks\ContaoTrackingManagerBundle\DataContainer\TmSettings::class, 'onloadCallback'),
+            array(\Slashworks\ContaoTrackingManagerBundle\DataContainer\Cookies::class, 'onloadCallback'),
         ),
         'sql'           => array
         (
@@ -62,7 +62,7 @@ $GLOBALS['TL_DCA']['tl_tmSettings'] = array
             (
                 'icon'            => 'visible.svg',
                 'attributes'      => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-                'button_callback' => array('tl_tmSettings', 'toggleIcon'),
+                'button_callback' => array('tl_tm_cookie', 'toggleIcon'),
                 'showInHeader'    => true,
             ),
             'show'   => array
@@ -93,18 +93,18 @@ $GLOBALS['TL_DCA']['tl_tmSettings'] = array
         ),
         'tstamp'       => array
         (
-            'label'   => &$GLOBALS['TL_LANG']['tl_tmSettings']['tstamp'],
+            'label'   => &$GLOBALS['TL_LANG']['tl_tm_cookie']['tstamp'],
             'sorting' => true,
             'sql'     => "int(10) unsigned NOT NULL default '0'",
         ),
         'pid'          => array
         (
-            'label' => &$GLOBALS['TL_LANG']['tl_tmConfig']['pid'],
+            'label' => &$GLOBALS['TL_LANG']['tl_tm_cookie']['pid'],
             'sql'   => "varchar(255) NOT NULL default ''",
         ),
         'name'         => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_tmSettings']['name'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_tm_cookie']['name'],
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -114,7 +114,7 @@ $GLOBALS['TL_DCA']['tl_tmSettings'] = array
         ),
         'label'        => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_tmSettings']['label'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_tm_cookie']['label'],
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -124,7 +124,7 @@ $GLOBALS['TL_DCA']['tl_tmSettings'] = array
         ),
         'isBaseCookie' => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_tmSettings']['isBaseCookie'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_tm_cookie']['isBaseCookie'],
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -134,7 +134,7 @@ $GLOBALS['TL_DCA']['tl_tmSettings'] = array
         ),
         'published'    => array
         (
-            'label'     => &$GLOBALS['TL_LANG']['tl_tmSettings']['published'],
+            'label'     => &$GLOBALS['TL_LANG']['tl_tm_cookie']['published'],
             'exclude'   => true,
             'search'    => true,
             'sorting'   => true,
@@ -144,7 +144,7 @@ $GLOBALS['TL_DCA']['tl_tmSettings'] = array
         ),
         'descriptions' => array
         (
-            'label'       => &$GLOBALS['TL_LANG']['tl_tmSettings']['descriptions'],
+            'label'       => &$GLOBALS['TL_LANG']['tl_tm_cookie']['descriptions'],
             'exclude'     => true,
             'inputType'   => 'multiColumnWizard',
             'dragAndDrop' => true,
@@ -153,12 +153,12 @@ $GLOBALS['TL_DCA']['tl_tmSettings'] = array
 
                 'columnFields' => [
                     'label'       => [
-                        'label'     => &$GLOBALS['TL_LANG']['tl_tmSettings']['descriptionLabel'],
+                        'label'     => &$GLOBALS['TL_LANG']['tl_tm_cookie']['descriptionLabel'],
                         'exclude'   => true,
                         'inputType' => 'text',
                     ],
                     'description' => [
-                        'label'     => &$GLOBALS['TL_LANG']['tl_tmSettings']['description'],
+                        'label'     => &$GLOBALS['TL_LANG']['tl_tm_cookie']['description'],
                         'exclude'   => true,
                         'inputType' => 'text',
                         'eval'      => ['preserveTags' => true, 'allowHtml' => true],
@@ -172,7 +172,7 @@ $GLOBALS['TL_DCA']['tl_tmSettings'] = array
         (
             'inputType'        => 'select',
             'options_callback' => array(
-                \Slashworks\ContaoTrackingManagerBundle\DataContainer\TmSettings::class,
+                \Slashworks\ContaoTrackingManagerBundle\DataContainer\Cookies::class,
                 'getTemplates',
             ),
             'eval'             => array('multiple' => true, 'chosen' => true),
@@ -182,7 +182,7 @@ $GLOBALS['TL_DCA']['tl_tmSettings'] = array
 );
 
 
-class tl_tmSettings extends \Contao\Backend
+class tl_tm_cookie extends \Contao\Backend
 {
 
     /**
@@ -238,7 +238,7 @@ class tl_tmSettings extends \Contao\Backend
 
         // Set the current record
         if ($dc) {
-            $objRow = $this->Database->prepare("SELECT * FROM tl_tmSettings WHERE id=?")
+            $objRow = $this->Database->prepare("SELECT * FROM tl_tm_cookie WHERE id=?")
                                      ->limit(1)
                                      ->execute($intId);
 
@@ -250,7 +250,7 @@ class tl_tmSettings extends \Contao\Backend
         $time = time();
 
         // Update the database
-        $this->Database->prepare("UPDATE tl_tmSettings SET tstamp=$time, published='" . ($blnVisible ? '1' : '') . "' WHERE id=?")
+        $this->Database->prepare("UPDATE tl_tm_cookie SET tstamp=$time, published='" . ($blnVisible ? '1' : '') . "' WHERE id=?")
                        ->execute($intId);
 
         if ($dc) {

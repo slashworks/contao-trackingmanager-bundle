@@ -6,7 +6,7 @@ use Contao\Controller;
 use Contao\PageModel;
 use Contao\StringUtil;
 use Slashworks\ContaoTrackingManagerBundle\Classes\TrackingManagerStatus;
-use Slashworks\ContaoTrackingManagerBundle\Model\TrackingmanagerSettingsModel;
+use Slashworks\ContaoTrackingManagerBundle\Model\Cookie;
 use Symfony\Component\VarDumper\VarDumper;
 
 class ParseFrontendTemplate
@@ -19,7 +19,7 @@ class ParseFrontendTemplate
             return $buffer;
         }
 
-        $cookies = TrackingmanagerSettingsModel::getCookiesByRootpage();
+        $cookies = Cookie::getCookiesByRootpage();
         if ($cookies === null) {
             return $buffer;
         }

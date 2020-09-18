@@ -1,6 +1,6 @@
 <?php
 
-$GLOBALS['TL_DCA']['tl_tmConfig'] = array
+$GLOBALS['TL_DCA']['tl_tm_statistic'] = array
 (
 
     // Config
@@ -58,18 +58,18 @@ $GLOBALS['TL_DCA']['tl_tmConfig'] = array
         ),
         'tstamp' => array
         (
-            'label' => &$GLOBALS['TL_LANG']['tl_tmConfig']['tstamp'],
+            'label' => &$GLOBALS['TL_LANG']['tl_tm_statistic']['tstamp'],
             'sorting' => true,
             'sql' => "int(10) unsigned NOT NULL default '0'"
         ),
         'pid' => array
         (
-            'label' => &$GLOBALS['TL_LANG']['tl_tmConfig']['pid'],
+            'label' => &$GLOBALS['TL_LANG']['tl_tm_statistic']['pid'],
             'sql' => "varchar(255) NOT NULL default ''",
         ),
         'title' => array
         (
-            'label' => &$GLOBALS['TL_LANG']['tl_tmConfig']['title'],
+            'label' => &$GLOBALS['TL_LANG']['tl_tm_statistic']['title'],
             'exclude' => true,
             'search' => true,
             'sorting' => true,
@@ -79,7 +79,7 @@ $GLOBALS['TL_DCA']['tl_tmConfig'] = array
         ),
         'status' => array
         (
-            'label' => &$GLOBALS['TL_LANG']['tl_tmConfig']['status'],
+            'label' => &$GLOBALS['TL_LANG']['tl_tm_statistic']['status'],
             'sql' => "char(1) NOT NULL default ''",
         ),
     )

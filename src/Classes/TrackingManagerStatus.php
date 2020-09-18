@@ -4,7 +4,7 @@ namespace Slashworks\ContaoTrackingManagerBundle\Classes;
 
 
 use Contao\PageModel;
-use Slashworks\ContaoTrackingManagerBundle\Model\TrackingmanagerSettingsModel;
+use Slashworks\ContaoTrackingManagerBundle\Model\Cookie;
 use Symfony\Component\VarDumper\VarDumper;
 
 class TrackingManagerStatus
@@ -29,7 +29,7 @@ class TrackingManagerStatus
         global $objPage;
 
         $rootPage = PageModel::findByPk($objPage->rootId);
-        $baseCookie = TrackingmanagerSettingsModel::getBaseCookieByRootPage($rootPage);
+        $baseCookie = Cookie::getBaseCookieByRootPage($rootPage);
 
         if ($baseCookie === null) {
             return false;

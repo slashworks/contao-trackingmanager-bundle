@@ -4,20 +4,20 @@ namespace Slashworks\ContaoTrackingManagerBundle\DataContainer;
 
 use Contao\CoreBundle\DataContainer\PaletteManipulator;
 use Contao\DataContainer;
-use Slashworks\ContaoTrackingManagerBundle\Model\TrackingmanagerSettingsModel;
+use Slashworks\ContaoTrackingManagerBundle\Model\Cookie;
 use Symfony\Component\VarDumper\VarDumper;
 
-class TmSettings
+class Cookies
 {
 
     public function onloadCallback(DataContainer $dc)
     {
-        $cookie = TrackingmanagerSettingsModel::findByPk($dc->id);
+        $cookie = Cookie::findByPk($dc->id);
 
         if ($cookie->isBaseCookie) {
             PaletteManipulator::create()
                 ->removeField('templates', 'template_legend')
-                ->applyToPalette('default', TrackingmanagerSettingsModel::getTable());
+                ->applyToPalette('default', Cookie::getTable());
         }
     }
 

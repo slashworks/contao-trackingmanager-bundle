@@ -6,10 +6,10 @@ use Contao\Model;
 use Contao\PageModel;
 use Contao\StringUtil;
 
-Class TrackingmanagerSettingsModel extends Model
+Class Cookie extends Model
 {
 
-    protected static $strTable = 'tl_tmSettings';
+    protected static $strTable = 'tl_tm_cookie';
 
     /**
      * @param PageModel|null $objRootPage

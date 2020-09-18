@@ -14,7 +14,7 @@
             <tbody>
             <?php foreach ($this->dataBlock as $name => $block) : ?>
                 <tr class="even click2edit toggle_select hover-row">
-                    <th class="tl_file_list"><?= $GLOBALS['TL_LANG']['tl_tmConfig'][$name]; ?></th>
+                    <th class="tl_file_list"><?= $GLOBALS['TL_LANG']['tl_tm_statistic'][$name]; ?></th>
                     <td class="tl_file_list"><?= $block['total']; ?></td>
                     <td class="tl_file_list"><?= $block['user']; ?></td>
                     <?php foreach ($block['cookies'] as $name => $cookie) : ?>

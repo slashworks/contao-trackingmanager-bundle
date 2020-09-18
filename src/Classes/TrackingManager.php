@@ -4,12 +4,12 @@ namespace Slashworks\ContaoTrackingManagerBundle\Classes;
 
 use Contao\FormCheckBox;
 use Contao\StringUtil;
-use Slashworks\ContaoTrackingManagerBundle\Model\TmConfigModel;
+use Slashworks\ContaoTrackingManagerBundle\Model\Statistic;
 use Contao\Frontend;
 use Contao\FrontendTemplate;
 use Contao\PageModel;
 use Contao\System;
-use Slashworks\ContaoTrackingManagerBundle\Model\TrackingmanagerSettingsModel;
+use Slashworks\ContaoTrackingManagerBundle\Model\Cookie;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Contao\Controller;
 use Symfony\Component\VarDumper\VarDumper;
@@ -39,8 +39,8 @@ class TrackingManager
         $session = System::getContainer()->get('session');
         $frontendSession = $session->getBag('contao_frontend');
 
-        $cookieSettings = TrackingmanagerSettingsModel::getCookiesByRootpage($rootPage);
-        $baseCookie = TrackingmanagerSettingsModel::getBaseCookieByRootPage($rootPage);
+        $cookieSettings = Cookie::getCookiesByRootpage($rootPage);
+        $baseCookie = Cookie::getBaseCookieByRootPage($rootPage);
 
         // get cookies set vs available values
         if ($cookieSettings === null) {
@@ -55,7 +55,7 @@ class TrackingManager
         while ($cookieSettings->next()) {
             // save cookie settings in DB
             if ($frontendSession->has('tm_config_set')) {
-                    $configModel = new TmConfigModel();
+                    $configModel = new Statistic();
                     $configModel->pid = $session->getId();
                     $configModel->tstamp = date('U');
                     $configModel->title = $cookieSettings->current()->name;
