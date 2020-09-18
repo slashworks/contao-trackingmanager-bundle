@@ -38,7 +38,7 @@
             <div class="row_wrapper">
 
                 <?php foreach ($this->cookies as $cookie): ?>
-                    <div class="cookie-row" style="position: relative;">
+                    <div class="cookie-row">
                         <?php echo $cookie['widget']; ?>
 
                         <?php if ($cookie['descriptions'] and count($cookie['descriptions']) > 0) : ?>
