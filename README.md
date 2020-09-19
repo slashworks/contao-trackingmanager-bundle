@@ -17,7 +17,7 @@ Zu guter letzt müssen wir wieder in die Wurzelseite unserer Srpache wechseln un
 Bis hierhin steuern wir lediglich die Anzeige des Managers. Es findet noch keine Unterbindung der Cookies statt.
 
 
-## Code zum verhindern der Cookie-Ausgabe bzw. des Skriptes welches die Cookies setzen würde
+## Code zum Verhindern der Cookie-Ausgabe bzw. des Skriptes welches die Cookies setzen würde
 Wenn der Trackingmanager angezeigt wird und der User seine Cookies akzeptiert, setzt der Manager eigene Cookies, um sich die Auswahl zu merken. Der Name des Cookies entspricht dem der Konfiguration. (z.B. tm_base und bozi_ga).
 Im tm_base Cookie speichern wir die aktuelle Konfiguration. Ändert sich diese, wird der Trackingmanager erneut angezeigt.
 
