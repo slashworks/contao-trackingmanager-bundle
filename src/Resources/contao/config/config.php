@@ -5,7 +5,7 @@ $GLOBALS['TL_MODELS']['tl_tm_cookie'] = \Slashworks\ContaoTrackingManagerBundle\
 $GLOBALS['TL_MODELS']['tl_tm_statistic'] = \Slashworks\ContaoTrackingManagerBundle\Model\Statistic::class;
 
 // Hooks
-$GLOBALS['TL_HOOKS']['generatePage'][] = array('Slashworks\ContaoTrackingManagerBundle\Classes\TrackingManager', 'generatePageHook');
+$GLOBALS['TL_HOOKS']['generatePage'][] = array(\Slashworks\ContaoTrackingManagerBundle\Hook\GeneratePage::class, 'generateTrackingManager');
 $GLOBALS['TL_HOOKS']['parseFrontendTemplate'][] = array(\Slashworks\ContaoTrackingManagerBundle\Hook\ParseFrontendTemplate::class, 'checkCookieDependency');
 
 // Backendmodul

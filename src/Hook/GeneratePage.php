@@ -1,9 +1,10 @@
 <?php
 
-namespace Slashworks\ContaoTrackingManagerBundle\Classes;
+namespace Slashworks\ContaoTrackingManagerBundle\Hook;
 
 use Contao\FormCheckBox;
 use Contao\StringUtil;
+use Slashworks\ContaoTrackingManagerBundle\Classes\TrackingManagerStatus;
 use Slashworks\ContaoTrackingManagerBundle\Model\Statistic;
 use Contao\Frontend;
 use Contao\FrontendTemplate;
@@ -14,15 +15,16 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Contao\Controller;
 use Symfony\Component\VarDumper\VarDumper;
 
-class TrackingManager
+class GeneratePage
 {
-
-    protected $strTemplate = 'trackingmanager';
-
     /**
      *
+     *
+     * @param \PageModel   $page
+     * @param \LayoutModel $layout
+     * @param \PageRegular $pageRegular
      */
-    public function generatePageHook(\PageModel $page, \LayoutModel $layout, \PageRegular $pageRegular)
+    public function generateTrackingManager(\PageModel $page, \LayoutModel $layout, \PageRegular $pageRegular)
     {
         if ($page->type != "regular") {
             return;
@@ -98,7 +100,7 @@ class TrackingManager
         }
 
         if (!TrackingManagerStatus::getCookieStatus($baseCookie->name) || ($config != $savedConfig)) {
-            $template = new FrontendTemplate($this->strTemplate);
+            $template = new FrontendTemplate('trackingmanager');
             $template->headline = $rootPage->tm_headline;
             $template->intro = $rootPage->tm_intro;
 
