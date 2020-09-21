@@ -12,14 +12,15 @@ Im Backend unter Trackingmanager lassen sich nun beliebig viele Cookies anlegen.
 Der legt einmal einen systemrelevanten Cookiehinweis an und Google Analytics (Stand 06-2020).
 Wir müssen für jede Sprache die Hinweise einzeln anlegen und mindestens ein Basiscookie je Sprache definieren.
 
-Zu guter letzt müssen wir wieder in die Wurzelseite unserer Srpache wechseln und auswählen, welche Cookies hier abgefragt werden sollen.
+Zu guter letzt müssen wir wieder in die Wurzelseite unserer Sprache wechseln und auswählen, welche Cookies hier abgefragt werden sollen.
 
 Bis hierhin steuern wir lediglich die Anzeige des Managers. Es findet noch keine Unterbindung der Cookies statt.
 
 
-## Code zum verhindern der Cookie-Ausgabe bzw. des Skriptes welches die Cookies setzen würde
+## Code zum Verhindern der Cookie-Ausgabe bzw. des Skriptes welches die Cookies setzen würde
 Wenn der Trackingmanager angezeigt wird und der User seine Cookies akzeptiert, setzt der Manager eigene Cookies, um sich die Auswahl zu merken. Der Name des Cookies entspricht dem der Konfiguration. (z.B. tm_base und bozi_ga).
 Im tm_base Cookie speichern wir die aktuelle Konfiguration. Ändert sich diese, wird der Trackingmanager erneut angezeigt.
+
 
 In deinem Code, welcher entsprechende Cookies setzen will, können wir nun eine Abfrage machen, ob Cookie XY akzeptiert wurde.
 
@@ -46,3 +47,7 @@ Dazu braucht ihr dann eine Sprachvariable für den Zeitraum-Titel.
 
      $GLOBALS['TL_LANG']['tl_tmConfig']['myRowTitle'] = 'My language variable';
 
+
+
+## Neu in Version 4
+Über das Cookie Backendmodul kann man nun den Cookies mehrere Templates zuweisen. Damit entfällt das Bearbeiten der Templates wie oben beschrieben. Aktuell sind nur analytics Templates berücksichtigt.
