@@ -24,6 +24,7 @@ $GLOBALS['BE_MOD']['trackingmanager'] = array(
     )
 );
 
+
 if (TL_MODE === 'FE') {
 
 } else {

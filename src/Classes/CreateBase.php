@@ -28,16 +28,16 @@ class CreateBase extends Backend
         $objModel->published = '1';
         $objModel->tstamp = time();
         $objModel->isBaseCookie = '1';
-        $objModel->descriptions = serialize(array(
-            array(
-                'label' => 'PHPSESSID',
-                'description' => 'Behält die Zustände der jeweiligen Session bei allen Seitenanfragen bei.<br /><strong>Ablaufzeit: mit der Session</strong>'
-            ),
-            array(
-                'label' => 'tm_base',
-                'description' => 'Speichert den Zustimmungsstatus des Benutzers für Cookies auf der aktuellen Domäne.<br /><strong>Ablaufzeit: 4 Wochen</strong>',
-            )
-        ));
+//        $objModel->descriptions = serialize(array(
+//            array(
+//                'label' => 'PHPSESSID',
+//                'description' => 'Behält die Zustände der jeweiligen Session bei allen Seitenanfragen bei.<br /><strong>Ablaufzeit: mit der Session</strong>'
+//            ),
+//            array(
+//                'label' => 'tm_base',
+//                'description' => 'Speichert den Zustimmungsstatus des Benutzers für Cookies auf der aktuellen Domäne.<br /><strong>Ablaufzeit: 4 Wochen</strong>',
+//            )
+//        ));
 
         $objModel->save();
     }
