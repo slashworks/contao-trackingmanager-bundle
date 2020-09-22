@@ -65,7 +65,17 @@ class GeneratePage
                     $configModel->save();
             }
             $cookie = $cookieSettings->row();
-            $cookie['descriptions'] = StringUtil::deserialize($cookie['descriptions']);
+
+            $descriptions = StringUtil::deserialize($cookie['descriptions'], true);
+            $firstDescription = $descriptions[0];
+            $keys = array_keys($firstDescription);
+            $firstKey = $keys[0];
+
+            if (!empty($firstDescription[$firstKey])) {
+                $cookie['descriptions'] = $descriptions;
+            } else {
+                $cookie['descriptions'] = array();
+            }
 
             $arrCookies[$cookieSettings->name] = $cookie;
         }
