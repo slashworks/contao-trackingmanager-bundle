@@ -21,7 +21,7 @@ if (isset($GLOBALS['TL_DCA']['tl_page']['palettes']['root'])) {
  * Define subpalette
  */
 $GLOBALS['TL_DCA']['tl_page']['palettes']['__selector__'][] = 'tm_active';
-$GLOBALS['TL_DCA']['tl_page']['subpalettes']['tm_active'] = 'tm_headline,tm_intro,tm_submit_all,tm_details,tm_submit,tm_linktext,tm_cookies_ttl,tm_link,tm_cookies';
+$GLOBALS['TL_DCA']['tl_page']['subpalettes']['tm_active'] = 'tm_headline,tm_intro,tm_submit_all,tm_details,tm_submit,tm_linktext,tm_cookies_ttl,tm_link,tm_cookies,tm_editable';
 
 
 /**
@@ -33,13 +33,7 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['tm_active'] = array
     'exclude'   => true,
     'search'    => 'true',
     'inputType' => 'checkbox',
-    'eval'      => array(
-        'mandatory'      => false,
-        'maxlength'      => 255,
-        'decodeEntities' => true,
-        'tl_class'       => 'clr m12',
-        'submitOnChange' => true,
-    ),
+    'eval'      => array('mandatory' => false, 'tl_class' => 'clr m12', 'submitOnChange' => true),
     'sql'       => "char(1) NOT NULL default ''",
 );
 
@@ -134,4 +128,14 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['tm_cookies'] = array
     'eval'       => array('multiple' => true, 'tl_class' => 'w50 autoheight'),
     'sql'        => "blob NULL",
     'relation'   => array('type' => 'hasMany', 'load' => 'lazy'),
+);
+
+$GLOBALS['TL_DCA']['tl_page']['fields']['tm_editable'] = array
+(
+    'label'     => &$GLOBALS['TL_LANG']['tl_page']['tm_editable'],
+    'exclude'   => true,
+    'default'   => '1',
+    'inputType' => 'checkbox',
+    'eval'      => array('mandatory' => false, 'tl_class' => 'clr m12'),
+    'sql'       => "char(1) NOT NULL default '1'",
 );

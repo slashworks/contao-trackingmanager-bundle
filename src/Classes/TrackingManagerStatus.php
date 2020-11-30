@@ -23,19 +23,23 @@ class TrackingManagerStatus
         return 0;
     }
 
-    public static function isBaseCookieSet()
+    public static function getBaseCookieName()
     {
         /** @var PageModel $objPage */
         global $objPage;
 
-        $rootPage = PageModel::findByPk($objPage->rootId);
-        $baseCookie = Cookie::getBaseCookieByRootPage($rootPage);
-
+        $rootpage = PageModel::findByPk($objPage->rootId);
+        $baseCookie = Cookie::getBaseCookieByRootPage($rootpage);
         if ($baseCookie === null) {
             return false;
         }
 
-        return \Input::cookie($baseCookie->name);
+        return $baseCookie->name;
+    }
+
+    public static function isBaseCookieSet()
+    {
+        return !empty(\Input::cookie(static::getBaseCookieName()));
     }
 
     /**
@@ -47,7 +51,7 @@ class TrackingManagerStatus
     {
         if (\Input::cookie($name) && static::isBaseCookieSet()) {
             return true;
-        };
+        }
 
         return false;
     }
@@ -59,12 +63,15 @@ class TrackingManagerStatus
      */
     public static function getCookieValue($name)
     {
-
-        if(\Input::cookie($name)){
+        if (\Input::cookie($name)) {
             return \Input::cookie($name);
-        };
+        }
 
         return false;
+    }
 
+    public static function getBaseCookieValue()
+    {
+        return static::getCookieValue(static::getBaseCookieName());
     }
 }

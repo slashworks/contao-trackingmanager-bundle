@@ -1,5 +1,5 @@
 <?php if ($this->cookies): ?>
-    <div class="trackingmanager">
+    <div class="trackingmanager<?php if ($this->hidden): ?> hidden<?php endif; ?>">
 
         <?php if ($this->headline): ?>
             <div class="header">

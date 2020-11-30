@@ -6,7 +6,22 @@ use Contao\Model;
 use Contao\PageModel;
 use Contao\StringUtil;
 
-Class Cookie extends Model
+/**
+ * Class Cookie
+ *
+ * @package Slashworks\ContaoTrackingManagerBundle\Model
+ *
+ * @property integer $id
+ * @property integer $tstamp
+ * @property integer $pid
+ * @property string  $name
+ * @property string  $label
+ * @property boolean $isBaseCookie
+ * @property boolean $published
+ * @property string  $descriptions
+ * @property string  $templates
+ */
+class Cookie extends Model
 {
 
     protected static $strTable = 'tl_tm_cookie';
@@ -26,10 +41,10 @@ Class Cookie extends Model
         }
 
         $arrCookies = StringUtil::deserialize($objRootPage->tm_cookies);
-        $arrCookies = implode(',',$arrCookies);
+        $arrCookies = implode(',', $arrCookies);
 
         $arrOptions = array(
-            'column' => array('published = 1 and id IN('.$arrCookies.')')
+            'column' => array('published = 1 and id IN(' . $arrCookies . ')'),
         );
 
         $objCookieSettings = self::find($arrOptions);
@@ -39,15 +54,17 @@ Class Cookie extends Model
 
     /**
      * @param PageModel $objRootPage
-     * @return Model|Model[]|Model\Collection|null
+     *
+     * @return Cookie|null
      */
     public static function getBaseCookieByRootPage(PageModel $objRootPage)
     {
         $arrCookies = StringUtil::deserialize($objRootPage->tm_cookies);
-        $arrCookies = implode(',',$arrCookies);
+        $arrCookies = implode(',', $arrCookies);
 
         $arrOptions = array(
-            'column' => array('published = 1 and id IN('.$arrCookies.') and isBaseCookie = 1'),
+            'column' => array('published = 1 and id IN(' . $arrCookies . ') and isBaseCookie = 1'),
+            'limit'  => 1,
             'return' => 'Model',
         );
 

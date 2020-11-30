@@ -10,9 +10,14 @@
     max-width: calc(100% - 64px);
     overflow: auto;
     position: fixed;
-    transition: .8s transform ease;
+    transition: all .8s ease;
     width: 500px;
     z-index: 10000;
+
+    &.hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
 
     &.ready {
 
@@ -203,6 +208,39 @@
             padding-left: 5px;
         }
 
+    }
+
+}
+
+
+/* Editor
+========================================================================== */
+
+.trackingmanager-editor {
+    align-items: center;
+    background: white;
+    border: 1px solid;
+    bottom: 32px;
+    box-shadow: 0 8px 16px -8px rgba(0, 0, 0, .24);
+    color: black;
+    cursor: pointer;
+    display: flex;
+    font-size: .875em;
+    flex-direction: column;
+    left: 32px;
+    padding: 12px;
+    position: fixed;
+    text-align: center;
+    transition: all .8s ease;
+    z-index: 10000;
+
+    &.hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .text {
+        margin-top: 8px;
     }
 
 }

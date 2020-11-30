@@ -51,3 +51,14 @@ Dazu braucht ihr dann eine Sprachvariable für den Zeitraum-Titel.
 
 ## Neu in Version 4
 Über das Cookie Backendmodul kann man nun den Cookies mehrere Templates zuweisen. Damit entfällt das Bearbeiten der Templates wie oben beschrieben. Aktuell sind nur analytics Templates berücksichtigt.
+
+
+## Cookie-Einstellungen bearbeiten - Trackingmanager erneut anzeigen
+In den Einstellungen der Wurzelseite ist per Standard die Checkbox "Bearbeiten-Button anzeigen" aktiviert: Im Frontend wird ein Cookie-Bearbeiten-Button angezeigt. Dadurch kann der User seine Cookie-Einstellungen ändern.
+Zusätzlich kann ein neuer Inserttag verwendet werden, um ein Inline-Element zu erstellen, das ebenfalls den Trackingmanager erneut einblendet:
+
+     {{tm_editor::Cookies bearbeiten}}
+
+Als zweiter Parameter kann der gewünschte Text eingegeben werden.
+
+Will man den Cookie-Bearbeiten-Button selbständig einfügen und die Ausgabe spezieller anpassen, kann ein beliebiges Element mit dem Attribut ```data-action="show_trackingmanager"``` versehen werden. Bei Klick auf dieses Element öffnet sich der Trackingmanager.

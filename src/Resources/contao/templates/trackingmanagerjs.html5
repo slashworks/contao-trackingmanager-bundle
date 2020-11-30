@@ -14,6 +14,9 @@
         this.slideDuration = 400;
         this.cookiesTTL = <?php echo $this->cookiesTTL; ?>;
 
+        this.editorButtons = document.querySelectorAll('[data-action="show_trackingmanager"]');
+        this.defaultEditorButton = document.querySelector('.trackingmanager-editor');
+
         this.setEvents();
 
         this.mod.classList.add('ready');
@@ -24,6 +27,7 @@
         this.initSubmitAll();
         this.initSubmitForm();
         this.initToggleDescription();
+        this.initEditorButtons();
       },
 
       initToggleForm: function() {
@@ -87,7 +91,31 @@
             $(this).parent().toggleClass('open');
           });
         }
-      }
+      },
+
+      initEditorButtons: function() {
+        var _self = this;
+        for (var i = 0; i < this.editorButtons.length; i++) {
+          var editorButton = this.editorButtons[i];
+
+          editorButton.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            _self.showTrackingManager();
+            _self.hideDefaultEditorButton();
+          });
+        }
+      },
+
+      showTrackingManager: function() {
+        this.mod.classList.remove('hidden');
+      },
+
+      hideDefaultEditorButton: function() {
+        if (this.defaultEditorButton !== null) {
+          this.defaultEditorButton.classList.add('hidden');
+        }
+      },
 
     };
 
