@@ -31,7 +31,7 @@ class ParseFrontendTemplate
                 continue;
             }
 
-            $templates = StringUtil::deserialize($cookie->templates);
+            $templates = StringUtil::deserialize($cookie->templates, true);
             if (!in_array($template, $templates)) {
                 continue;
             }
