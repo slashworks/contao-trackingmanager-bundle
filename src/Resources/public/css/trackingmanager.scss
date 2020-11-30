@@ -1,0 +1,208 @@
+
+.trackingmanager {
+    background: white;
+    border: 1px solid;
+    bottom: 32px;
+    box-shadow: 0 8px 16px -8px rgba(0, 0, 0, .24);
+    color: black;
+    left: 32px;
+    max-height: calc(100vh - 64px);
+    max-width: calc(100% - 64px);
+    overflow: auto;
+    position: fixed;
+    transition: .8s transform ease;
+    width: 500px;
+    z-index: 10000;
+
+    &.ready {
+
+    }
+
+    .header {
+        border-bottom: 1px solid;
+        padding: 24px 32px;
+        text-align: center;
+    }
+
+    .header-title {
+        align-items: center;
+        display: inline-flex;
+        font-size: 1.5em;
+        font-weight: 700;
+
+        svg {
+            margin-right: 16px;
+        }
+
+        .text + svg {
+            margin-left: 16px;
+            margin-right: 0;
+        }
+
+    }
+
+    .intro {
+        padding: 24px 32px;
+    }
+
+}
+
+
+/* accept area
+========================================================================== */
+
+.tm-submit-all-wrapper {
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.tm-more-wrapper {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+#tm_more {
+    align-items: center;
+    display: inline-flex;
+
+    svg {
+        margin-right: 8px;
+    }
+
+    .text + svg {
+        margin-left: 8px;
+        margin-right: 0;
+    }
+
+}
+
+
+/* form area
+========================================================================== */
+
+.trackingmanager {
+
+    form {
+        display: none;
+        padding: 0 32px 24px;
+    }
+
+    .row_wrapper {
+
+    }
+
+    .cookie-row {
+        position: relative;
+    }
+
+    .cookie-row + .cookie-row {
+        margin-top: -1px;
+    }
+
+    .row {
+        border-bottom: 1px solid #ccc;
+        padding: 5px 20px 5px 5px;
+        position: relative;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+    }
+
+    .widget {
+        background: #eee;
+        border: 1px solid;
+    }
+
+    .checkbox_container {
+        border: none;
+        margin: 0;
+        padding: 16px 50px 16px 24px;
+    }
+
+    .info {
+        background: #fff;
+        border-radius: 50%;
+        cursor: pointer;
+        height: 24px;
+        position: absolute;
+        right: 24px;
+        top: 16px;
+        width: 24px;
+
+        svg {
+            height: 100%;
+            width: 100%;
+        }
+
+    }
+
+    .info-close {
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+    }
+
+    .cookie-row.open {
+
+        .info-open {
+            opacity: 0;
+        }
+
+        .info-close {
+            opacity: 1;
+        }
+
+    }
+
+    .submit_container {
+        margin-top: 16px;
+        text-align: center;
+    }
+
+    .hint {
+        color: #ccc;
+        padding: 30px 0 0 0;
+        text-align: center;
+
+        a {
+            color: #999;
+            font-size: 12px;
+        }
+
+    }
+
+}
+
+/* description
+========================================================================== */
+
+.trackingmanager {
+
+    .cookie_desc {
+        border: 1px solid;
+        border-top: none;
+        display: none;
+        padding: 16px 24px;
+
+        dl {
+            display: grid;
+            grid-column-gap: 12px;
+            grid-row-gap: 8px;
+            grid-template-columns: 1fr 4fr;
+        }
+
+        dt {
+            margin: 0;
+        }
+
+        dd {
+            margin-left: 0;
+            padding-left: 5px;
+        }
+
+    }
+
+}

@@ -2,6 +2,7 @@
 
 namespace Slashworks\ContaoTrackingManagerBundle\Hook;
 
+use Contao\Combiner;
 use Contao\FormCheckBox;
 use Contao\StringUtil;
 use Slashworks\ContaoTrackingManagerBundle\Classes\TrackingManagerStatus;
@@ -135,7 +136,10 @@ class GeneratePage
             $template->config = sha1(serialize($arrCookies));
 
             $GLOBALS['TL_BODY'][] = Controller::replaceInsertTags($template->parse());
-            $GLOBALS['TL_CSS'][] = '/bundles/contaotrackingmanager/css/trackingmanager.css';
+            
+            $combiner = new Combiner();
+            $combiner->add('bundles/contaotrackingmanager/css/trackingmanager.scss');
+            $GLOBALS['TL_CSS'][] = $combiner->getCombinedFile();
 
             // add js
             $jsTemplate = new FrontendTemplate('trackingmanagerjs');
