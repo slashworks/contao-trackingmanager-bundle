@@ -1,18 +1,32 @@
 <?php
 
-\Contao\CoreBundle\DataContainer\PaletteManipulator::create()
-                                                   ->addLegend('trackingmanager_legend', 'twoFactor_legend',
-                                                       \Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_AFTER)
-                                                   ->addField(array('tm_active'), 'trackingmanager_legend',
-                                                       \Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
-                                                   ->applyToPalette('rootfallback', 'tl_page')
-                                                   ->applyToPalette('root', 'tl_page');
+use Contao\CoreBundle\DataContainer\PaletteManipulator;
 
-//added subpalettes
+/**
+ * Extend core palettes
+ */
+$trackingManagerFields = PaletteManipulator::create()
+    ->addLegend('trackingmanager_legend', 'twoFactor_legend',PaletteManipulator::POSITION_AFTER)
+    ->addField(array('tm_active'), 'trackingmanager_legend',PaletteManipulator::POSITION_APPEND);
+
+if (isset($GLOBALS['TL_DCA']['tl_page']['palettes']['rootfallback'])) {
+    $trackingManagerFields->applyToPalette('rootfallback', 'tl_page');
+}
+if (isset($GLOBALS['TL_DCA']['tl_page']['palettes']['root'])) {
+    $trackingManagerFields->applyToPalette('root', 'tl_page');
+}
+
+
+/**
+ * Define subpalette
+ */
 $GLOBALS['TL_DCA']['tl_page']['palettes']['__selector__'][] = 'tm_active';
 $GLOBALS['TL_DCA']['tl_page']['subpalettes']['tm_active'] = 'tm_headline,tm_intro,tm_submit_all,tm_details,tm_submit,tm_linktext,tm_cookies_ttl,tm_link,tm_cookies';
 
 
+/**
+ * Define fields
+ */
 $GLOBALS['TL_DCA']['tl_page']['fields']['tm_active'] = array
 (
     'label'     => &$GLOBALS['TL_LANG']['tl_page']['tm_active'],
