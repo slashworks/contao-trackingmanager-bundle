@@ -46,7 +46,7 @@ $GLOBALS['TL_HOOKS']['getSystemMessages'][] = array(\Slashworks\ContaoTrackingMa
 /**
  * Cron jobs
  */
-$GLOBALS['TL_CRON']['minutely'][] = array(\Slashworks\ContaoTrackingManagerBundle\Cron\UnknownCookieNotification::class, 'run');
+$GLOBALS['TL_CRON']['daily'][] = array(\Slashworks\ContaoTrackingManagerBundle\Cron\UnknownCookieNotification::class, 'run');
 
 
 /**
