@@ -6,8 +6,10 @@ use Contao\Combiner;
 use Contao\Controller;
 use Contao\CoreBundle\Monolog\ContaoContext;
 use Contao\CoreBundle\Session\Attribute\ArrayAttributeBag;
+use Contao\Environment;
 use Contao\FormCheckBox;
 use Contao\FrontendTemplate;
+use Contao\Input;
 use Contao\PageModel;
 use Contao\StringUtil;
 use Contao\System;
@@ -150,6 +152,8 @@ class TrackingManager
 
             $GLOBALS['TL_BODY'][] = Controller::replaceInsertTags($editorTemplate->parse());
         }
+
+        $this->deleteDisabledBrowserCookies();
     }
 
     protected function getCookieData()
@@ -160,12 +164,12 @@ class TrackingManager
         while ($cookieSettings->next()) {
             // save cookie settings in DB
             if ($this->frontendSession->has('tm_config_set')) {
-                $configModel = new Statistic();
-                $configModel->pid = $this->session->getId();
-                $configModel->tstamp = time();
-                $configModel->title = $cookieSettings->current()->name;
-                $configModel->status = TrackingManagerStatus::getCookieStatus($cookieSettings->current()->name);
-                $configModel->save();
+                $statistic = new Statistic();
+                $statistic->pid = $this->session->getId();
+                $statistic->tstamp = time();
+                $statistic->title = $cookieSettings->current()->name;
+                $statistic->status = TrackingManagerStatus::getCookieStatus($cookieSettings->current()->name);
+                $statistic->save();
             }
 
             $cookie = $cookieSettings->row();
@@ -219,6 +223,24 @@ class TrackingManager
     protected function getConfiguration()
     {
         return sha1(serialize($this->getCookieData()));
+    }
+
+    protected function deleteDisabledBrowserCookies()
+    {
+        $cookies = $this->getCookieData();
+
+        foreach ($cookies as $cookie) {
+            $cookieModel = Cookie::findByPk($cookie['id']);
+
+            if (TrackingManagerStatus::getCookieStatus($cookieModel->name) === true) {
+                continue;
+            }
+
+            $browserCookies = $cookieModel->getBrowserCookieNames();
+            foreach ($browserCookies as $name) {
+                System::setCookie($name, '', time() - 3600, '/', Environment::get('host'));
+            }
+        }
     }
 
 }

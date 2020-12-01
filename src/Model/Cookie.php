@@ -5,6 +5,7 @@ namespace Slashworks\ContaoTrackingManagerBundle\Model;
 use Contao\Model;
 use Contao\PageModel;
 use Contao\StringUtil;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * Class Cookie
@@ -71,6 +72,27 @@ class Cookie extends Model
         $objCookieSettings = self::find($arrOptions);
 
         return $objCookieSettings;
+    }
+
+    public function getBrowserCookieNames()
+    {
+        $browserCookieNames = array();
+
+        $descriptions = StringUtil::deserialize($this->descriptions, true);
+
+        if (empty($descriptions[0]['label'])) {
+            return $browserCookieNames;
+        }
+
+        if ($this->isBaseCookie) {
+            return $browserCookieNames;
+        }
+
+        foreach ($descriptions as $description) {
+            $browserCookieNames[] = $description['label'];
+        }
+
+        return $browserCookieNames;
     }
 
 }
