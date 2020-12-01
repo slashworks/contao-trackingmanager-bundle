@@ -84,10 +84,6 @@ class Cookie extends Model
             return $browserCookieNames;
         }
 
-        if ($this->isBaseCookie) {
-            return $browserCookieNames;
-        }
-
         foreach ($descriptions as $description) {
             $browserCookieNames[] = $description['label'];
         }
