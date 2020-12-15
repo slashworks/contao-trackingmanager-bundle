@@ -125,7 +125,7 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['tm_cookies'] = array
     'search'     => true,
     'inputType'  => 'checkboxWizard',
     'foreignKey' => 'tl_tm_cookie.name',
-    'eval'       => array('multiple' => true, 'tl_class' => 'w50 autoheight'),
+    'eval'       => array('mandatory' => true, 'multiple' => true, 'tl_class' => 'w50 autoheight'),
     'sql'        => "blob NULL",
     'relation'   => array('type' => 'hasMany', 'load' => 'lazy'),
 );

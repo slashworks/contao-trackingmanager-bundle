@@ -14,9 +14,11 @@ class Cookies
     {
         $cookie = Cookie::findByPk($dc->id);
 
-        if ($cookie->isBaseCookie) {
+        // Add template selection to all cookies, except the base cookie.
+        if (!$cookie->isBaseCookie) {
             PaletteManipulator::create()
-                ->removeField('templates', 'template_legend')
+                ->addLegend('template_legend', 'title_legend', PaletteManipulator::POSITION_AFTER)
+                ->addField('templates', 'template_legend', PaletteManipulator::POSITION_APPEND)
                 ->applyToPalette('default', Cookie::getTable());
         }
     }

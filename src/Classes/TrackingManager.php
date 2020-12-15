@@ -124,6 +124,12 @@ class TrackingManager
             return;
         }
 
+        // No cookies selected
+        $cookies = StringUtil::deserialize($rootPage->tm_cookies, true);
+        if (empty($cookies)) {
+            return;
+        }
+
         $cookieSettings = Cookie::getCookiesByRootpage($rootPage);
         $baseCookie = Cookie::getBaseCookieByRootPage($rootPage);
 
