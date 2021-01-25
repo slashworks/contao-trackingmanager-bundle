@@ -41,8 +41,15 @@ class Cookie extends Model
             $objRootPage = PageModel::findByPk($objPage->rootId);
         }
 
+        if (!$objRootPage->tm_active) {
+            return null;
+        }
+
         $arrCookies = StringUtil::deserialize($objRootPage->tm_cookies);
         $arrCookies = implode(',', $arrCookies);
+        if (empty($arrCookies)) {
+            return null;
+        }
 
         $arrOptions = array(
             'column' => array('published = 1 and id IN(' . $arrCookies . ')'),
