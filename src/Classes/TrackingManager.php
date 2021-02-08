@@ -284,6 +284,15 @@ class TrackingManager
     {
         $cookies = $this->getCookieData();
 
+        $domain = Environment::get('host');
+        $domains = array
+        (
+            $domain,
+            '.' . $domain,
+            str_replace('www.', '', $domain),
+            '.' . str_replace('www.', '', $domain),
+        );
+
         foreach ($cookies as $cookie) {
             $cookieModel = Cookie::findByPk($cookie['id']);
 
@@ -293,7 +302,9 @@ class TrackingManager
 
             $browserCookies = $cookieModel->getBrowserCookieNames();
             foreach ($browserCookies as $name) {
-                System::setCookie($name, '', time() - 3600, '/', Environment::get('host'));
+                foreach ($domains as $d) {
+                    System::setCookie($name, '', time() - 3600, '/', $d);
+                }
             }
         }
     }
