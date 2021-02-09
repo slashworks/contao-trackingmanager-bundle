@@ -285,12 +285,17 @@ class TrackingManager
         $cookies = $this->getCookieData();
 
         $domain = Environment::get('host');
+
+        // Get subdomain
+        $firstDot = strpos($domain, '.');
+        $subdomain = substr($domain, 0, $firstDot);
+
         $domains = array
         (
             $domain,
             '.' . $domain,
-            str_replace('www.', '', $domain),
-            '.' . str_replace('www.', '', $domain),
+            str_replace($subdomain . '.', '', $domain),
+            '.' . str_replace( $subdomain . '.', '', $domain),
         );
 
         foreach ($cookies as $cookie) {
