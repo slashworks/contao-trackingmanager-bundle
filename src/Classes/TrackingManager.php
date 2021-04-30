@@ -213,6 +213,7 @@ class TrackingManager
 
     protected function getCookieData()
     {
+        $rootPage = PageModel::findById($this->page->rootId);
         $cookieSettings = Cookie::getCookiesByRootpage($rootPage);
 
         /** @var Cookie $cookieSettings */
