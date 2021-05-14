@@ -20,7 +20,7 @@ class GetSystemMessages
             $info = sprintf(
                 $GLOBALS['TL_LANG']['MSC']['BE']['unknownCookiesMessage'],
                 $backendUrl . '?do=tmCookies',
-                $backendUrl . '?do=tmUnknownCookies',
+                $backendUrl . '?do=tmUnknownCookies'
             );
             $message .= '<p class="tl_info">' . $info . '</p>';
         }
