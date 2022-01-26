@@ -76,7 +76,7 @@ $GLOBALS['TL_DCA']['tl_tm_cookie'] = array
     // Palettes
     'palettes'    => array
     (
-        'default' => '{title_legend},name,label,descriptions,isBaseCookie,published;{template_legend},templates',
+        'default' => '{title_legend},name,label,descriptions,isBaseCookie,published',
     ),
 
     // Subpalettes

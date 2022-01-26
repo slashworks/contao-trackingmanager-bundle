@@ -121,6 +121,7 @@
     }
 
     .checkbox_container {
+        box-sizing: border-box;
         border: none;
         margin: 0;
         padding: 16px 50px 16px 24px;
@@ -243,4 +244,26 @@
         margin-top: 8px;
     }
 
+}
+
+
+@media screen and (max-width: 600px) {
+
+  .trackingmanager {
+
+    .cookie_desc {
+      dl {
+        grid-template-columns: 1fr;
+
+        dt {
+          font-weight: 700;
+        }
+
+        dd {
+          margin-bottom: 25px;
+          padding-left: 0;
+        }
+      }
+    }
+  }
 }

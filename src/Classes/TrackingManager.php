@@ -17,6 +17,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Slashworks\ContaoTrackingManagerBundle\Model\Cookie;
 use Slashworks\ContaoTrackingManagerBundle\Model\Statistic;
+use Slashworks\ContaoTrackingManagerBundle\Model\UnknownCookie;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\VarDumper\VarDumper;
@@ -32,6 +33,9 @@ class TrackingManager
 
     /** @var ArrayAttributeBag */
     protected $frontendSession;
+
+    /** @var LoggerInterface */
+    protected $logger;
 
     /**
      * @return Session
@@ -57,6 +61,58 @@ class TrackingManager
         return $this->page;
     }
 
+    public function __construct()
+    {
+        $this->logger = System::getContainer()->get('monolog.logger.contao');
+
+        // check sessionbag to save saved config
+        $this->session = System::getContainer()->get('session');
+        $this->frontendSession = $this->session->getBag('contao_frontend');
+    }
+
+    public function checkCookies()
+    {
+        if ($this->page->type !== 'regular') {
+            return;
+        }
+
+        $rootPage = PageModel::findById($this->page->rootId);
+        if (!$rootPage->tm_active) {
+            return;
+        }
+
+        $cookies = $this->getCookieData();
+
+        $browserCookies = $_COOKIE;
+        $unknownCookies = $browserCookies;
+
+        foreach ($cookies as $cookie) {
+            unset($unknownCookies[$cookie['name']]);
+
+            $cookieModel = Cookie::findByPk($cookie['id']);
+            $relatedCookies = $cookieModel->getBrowserCookieNames();
+
+            foreach ($relatedCookies as $relatedCookie) {
+                unset($unknownCookies[$relatedCookie]);
+            }
+        }
+
+        if (empty($unknownCookies)) {
+            return;
+        }
+
+        foreach ($unknownCookies as $name => $value) {
+            if (UnknownCookie::countBy('name', $name) > 0) {
+                continue;
+            }
+
+            $model = new UnknownCookie();
+            $model->tstamp = time();
+            $model->name = $name;
+            $model->save();
+        }
+    }
+
     public function generate()
     {
         if ($this->page->type != "regular") {
@@ -68,23 +124,22 @@ class TrackingManager
             return;
         }
 
-        /** @var LoggerInterface $logger */
-        $logger = System::getContainer()->get('monolog.logger.contao');
-
-        // check sessionbag to save saved config
-        $this->session = System::getContainer()->get('session');
-        $this->frontendSession = $this->session->getBag('contao_frontend');
+        // No cookies selected
+        $cookies = StringUtil::deserialize($rootPage->tm_cookies, true);
+        if (empty($cookies)) {
+            return;
+        }
 
         $cookieSettings = Cookie::getCookiesByRootpage($rootPage);
         $baseCookie = Cookie::getBaseCookieByRootPage($rootPage);
 
         // get cookies set vs available values
         if ($cookieSettings === null) {
-            $logger->log(LogLevel::INFO, 'No cookies selected in root page.', array('contao' => new ContaoContext(__METHOD__, 'Tracking Manager')));
+            $this->logger->log(LogLevel::INFO, 'No cookies selected in root page.', array('contao' => new ContaoContext(__METHOD__, 'Tracking Manager')));
             return;
         }
         if ($baseCookie === null) {
-            $logger->log(LogLevel::INFO, 'No baseCookie selected in root page.', array('contao' => new ContaoContext(__METHOD__, 'Tracking Manager')));
+            $this->logger->log(LogLevel::INFO, 'No baseCookie selected in root page.', array('contao' => new ContaoContext(__METHOD__, 'Tracking Manager')));
             return;
         }
 
@@ -159,6 +214,7 @@ class TrackingManager
 
     protected function getCookieData()
     {
+        $rootPage = PageModel::findById($this->page->rootId);
         $cookieSettings = Cookie::getCookiesByRootpage($rootPage);
 
         /** @var Cookie $cookieSettings */
@@ -230,6 +286,20 @@ class TrackingManager
     {
         $cookies = $this->getCookieData();
 
+        $domain = Environment::get('host');
+
+        // Get subdomain
+        $firstDot = strpos($domain, '.');
+        $subdomain = substr($domain, 0, $firstDot);
+
+        $domains = array
+        (
+            $domain,
+            '.' . $domain,
+            str_replace($subdomain . '.', '', $domain),
+            '.' . str_replace( $subdomain . '.', '', $domain),
+        );
+
         foreach ($cookies as $cookie) {
             $cookieModel = Cookie::findByPk($cookie['id']);
 
@@ -239,7 +309,9 @@ class TrackingManager
 
             $browserCookies = $cookieModel->getBrowserCookieNames();
             foreach ($browserCookies as $name) {
-                System::setCookie($name, '', time() - 3600, '/', Environment::get('host'));
+                foreach ($domains as $d) {
+                    System::setCookie($name, '', time() - 3600, '/', $d);
+                }
             }
         }
     }
