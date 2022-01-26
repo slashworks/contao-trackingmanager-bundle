@@ -67,6 +67,16 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['tm_submit_all'] = array
     'sql'       => "varchar(255) NOT NULL default ''",
 );
 
+$GLOBALS['TL_DCA']['tl_page']['fields']['tm_deny_all'] = array
+(
+    'label'     => &$GLOBALS['TL_LANG']['tl_page']['tm_deny_all'],
+    'exclude'   => true,
+    'search'    => true,
+    'inputType' => 'text',
+    'eval'      => array('mandatory' => false, 'maxlength' => 255, 'decodeEntities' => true, 'tl_class' => 'w50'),
+    'sql'       => "varchar(255) NOT NULL default ''",
+);
+
 $GLOBALS['TL_DCA']['tl_page']['fields']['tm_details'] = array
 (
     'label'     => &$GLOBALS['TL_LANG']['tl_page']['tm_details'],

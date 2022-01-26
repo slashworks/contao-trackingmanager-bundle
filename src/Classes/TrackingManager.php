@@ -118,6 +118,7 @@ class TrackingManager
         $template->baseCookieName = TrackingManagerStatus::getBaseCookieName();
         $template->linktext = $rootPage->tm_linktext;
         $template->submit_all = $rootPage->tm_submit_all;
+        $template->deny_all = $rootPage->tm_deny_all;
         $template->details = $rootPage->tm_details;
         $template->submit = $rootPage->tm_submit;
         $template->cookies = $arrCookies;
